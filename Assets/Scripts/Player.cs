@@ -123,14 +123,14 @@ public class Player : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         grounded++;
-        if(grounded==0)
+        if(grounded>0)
             anim.Play("GoFront");
     }
 
     void OnCollisionExit(Collision collision)
     {
         grounded--;
-        if(grounded>0)
+        if(grounded==0)
             anim.Play("Jump");
     }
     /// <summary>
