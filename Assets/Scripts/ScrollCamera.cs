@@ -36,10 +36,11 @@ public class ScrollCamera : MonoBehaviour {
     {
         if (_player1 != null && _player2 != null)
         {
-            if (_forward)
-                _SelectedPlayer = _player1.transform.position.x > _player2.transform.position.x ? _player1 : _player2;
-            else
-                _SelectedPlayer = _player1.transform.position.x < _player2.transform.position.x ? _player1 : _player2;
+            //if (_forward)
+            //    _SelectedPlayer = _player1.transform.position.x > _player2.transform.position.x ? _player1 : _player2;
+            //else
+            //    _SelectedPlayer = _player1.transform.position.x < _player2.transform.position.x ? _player1 : _player2;
+            _SelectedPlayer = _player1.transform.position.x > _player2.transform.position.x ? _player1 : _player2;
         }
         else
         {
@@ -58,10 +59,10 @@ public class ScrollCamera : MonoBehaviour {
         if (_forward && LocalPosition(_SelectedPlayer) < -0.8)
             _forward = false;
            
-        //if (!_forward && LocalPosition(_SelectedPlayer) > 0.8)
-        //        _forward = true;
-        if(!_forward && (LocalPosition(_player1) > 1.5 || LocalPosition(_player2) > 1.5))
-            _forward = true;
+        if (!_forward && LocalPosition(_SelectedPlayer) > 0.8)
+                _forward = true;
+        //if(!_forward && (LocalPosition(_player1) > 1.5 || LocalPosition(_player2) > 1.5))
+        //    _forward = true;
     }
 
     private void SetPosition()
@@ -74,7 +75,7 @@ public class ScrollCamera : MonoBehaviour {
 
     private void Move()
     {
-        Camera.main.transform.Translate((_positionCible - Camera.main.transform.position)*8*Time.deltaTime);
+        Camera.main.transform.Translate((_positionCible - Camera.main.transform.position)*4*Time.deltaTime);
     }
 
 	// Update is called once per frame
