@@ -4,7 +4,7 @@ using System.Collections;
 public class Button : MonoBehaviour {
     //class button to activate any mechanism
 
-    public GameObject objet;
+    public GameObject Target;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +18,11 @@ public class Button : MonoBehaviour {
 
     void OnTriggerEnter(Collider coll)
     {
-        objet.GetComponent<platformrotation>().EnableMechanism();
+        Target.GetComponent<Mechanism>().EnableMechanism();
+    }
+
+    void OnTriggerExit(Collider coll)
+    {
+        Target.GetComponent<Mechanism>().DisableMechanism();
     }
 }
