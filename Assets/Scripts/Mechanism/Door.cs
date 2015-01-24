@@ -28,7 +28,7 @@ public class Door : Mechanism {
         else
         {
             _direction = new Vector3(0, (Upward ? 1 : -1), 0);
-            transform.Translate(transform.InverseTransformVector(_direction * Speed * Time.deltaTime));
+            transform.Translate(_direction * Speed * Time.deltaTime);
         }
     }
 
@@ -40,7 +40,7 @@ public class Door : Mechanism {
         else
         {
             _direction = new Vector3(0, (Upward ? -1 : 1), 0);
-            transform.Translate(transform.InverseTransformVector(_direction * Speed * Time.deltaTime));
+            transform.Translate(_direction * Speed * Time.deltaTime);
         }
     }
 }
