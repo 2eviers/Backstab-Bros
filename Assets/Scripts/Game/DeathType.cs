@@ -124,5 +124,7 @@ public class DeathType : MonoBehaviour
     {
         RunTimer();
         ChangeState();
+        Debug.Log(Player1State);
+        Debug.Log(Player2State);
     }
 }
