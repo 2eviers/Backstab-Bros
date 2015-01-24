@@ -58,10 +58,12 @@ public class Player : Caracteristique
     private float _jumpRatio = 15f/30f;
 
     private Animator anim;
+	private Rotation rotor;
     
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
+		rotor = GetComponentInChildren<Rotation> ();
     }
 
 
@@ -73,6 +75,8 @@ public class Player : Caracteristique
 
 		float h = Input.GetAxisRaw (_prefixController+"Horizontal");
 		anim.SetBool ("Walking", h!=0f);
+		if(axis.x!=0)
+			rotor.turn (axis.x > 0);
 
         //Si le personnage touche le sol
         if (grounded>0)
