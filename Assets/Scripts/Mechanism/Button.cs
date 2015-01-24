@@ -16,12 +16,13 @@ public class Button : MonoBehaviour {
 	
 	}
 
-    void OnTriggerEnter(Collider coll)
+    void OnCollisionEnter(Collision coll)
     {
-        Target.GetComponent<Mechanism>().EnableMechanism();
+        if (coll.collider.GetComponentInParent<Player>())
+            Target.GetComponent<Mechanism>().EnableMechanism();
     }
 
-    void OnTriggerExit(Collider coll)
+    void OnCollisionExit(Collision coll)
     {
         Target.GetComponent<Mechanism>().DisableMechanism();
     }
