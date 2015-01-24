@@ -11,7 +11,7 @@ public class Player : Caracteristique
     /// Cette variable est le préfix des controle dans l'InputManager il vaut "J1" ou "J2"
     /// </summary>
     [SerializeField] 
-    private string _prefixController = "J1";
+    public string _prefixController = "J1";
     /// <summary>
     /// Vitesse maximal de l'avatar
     /// </summary>
