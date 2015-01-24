@@ -72,7 +72,7 @@ public class ScrollCamera : MonoBehaviour {
 
     private void Move()
     {
-        Camera.main.transform.Translate(_positionCible*Time.deltaTime);
+        Camera.main.transform.Translate((_positionCible - Camera.main.transform.position)*Time.deltaTime);
     }
 
 	// Update is called once per frame

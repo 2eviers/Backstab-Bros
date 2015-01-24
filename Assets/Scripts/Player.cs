@@ -100,7 +100,6 @@ public class Player : MonoBehaviour
         //grounded = false;
     }
 
-    private int count = 0;
     void OnCollisionEnter(Collision collision)
     {
         grounded = true;
