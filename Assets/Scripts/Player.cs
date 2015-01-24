@@ -53,8 +53,12 @@ public class Player : MonoBehaviour
     /// </summary>
     private float timerJump;
 
+    private Animator anim;
 
-
+    void Start()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
 
 
     void FixedUpdate()
@@ -64,6 +68,8 @@ public class Player : MonoBehaviour
         axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"),0, 0);
         if (grounded)
         {
+            anim.Play("GoFront");
+            anim.speed = rigidbody.velocity.magnitude;
             if (axis.magnitude > 0)
             {
                 // Calcule la vitesse à atteindre
@@ -82,6 +88,8 @@ public class Player : MonoBehaviour
             // Jump
             if (CanJump && Input.GetButton(_prefixController+"Jump"))
             {
+                anim.Play("Jump");
+                
                 rigidbody.velocity = new Vector3(rigidbody.velocity.x, CalculateInitialJumpVerticalSpeed(), rigidbody.velocity.z);
                 timerJump = Time.time;
             }
