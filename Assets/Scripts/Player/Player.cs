@@ -69,13 +69,18 @@ public class Player : Caracteristique
     {
 
         var axis = new Vector3(Input.GetAxis(_prefixController+"Horizontal"),0, 0);
-        axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"),0, 0);
+		axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"),0, 0);
 
+		float h = Input.GetAxisRaw (_prefixController+"Horizontal");
+		anim.SetBool ("Walking", h!=0f);
 
         //Si le personnage touche le sol
         if (grounded>0)
         {
-            anim.speed = Mathf.Abs(rigidbody.velocity.x);
+			if(anim.GetBool("Jump")== true)
+				anim.SetBool("Jump", false);
+			//anim.speed = 1;
+            //anim.speed = Mathf.Abs(rigidbody.velocity.x);
             //Si l'input est nul on se laisse aller par l'inertie.
             if (axis.magnitude > 0)
             {
@@ -89,6 +94,7 @@ public class Player : Caracteristique
             if (CanJump && Input.GetButton(_prefixController+"Jump"))
             {
                 InitialJump();
+				anim.SetBool("Jump", true);
             }
         }
         // si le personnage est en vole
@@ -103,15 +109,11 @@ public class Player : Caracteristique
     void OnCollisionEnter(Collision collision)
     {
         grounded++;
-        if(grounded>0)
-            anim.Play("GoFront");
     }
 
     void OnCollisionExit(Collision collision)
     {
         grounded--;
-        if(grounded==0)
-            anim.Play("Jump");
     }
     /// <summary>
     /// Calcule la vitesse de saut initiale 
@@ -168,7 +170,7 @@ public class Player : Caracteristique
         timerJump = Time.time;
 
         var tempsDeVole = CalculeAirTime(_minJumpHeight);
-        anim.speed = _jumpRatio / tempsDeVole; 
+        //anim.speed = _jumpRatio / tempsDeVole; 
     }
     /// <summary>
     /// Applique les forces de air contrôle en fonction des inputs axis
@@ -185,7 +187,7 @@ public class Player : Caracteristique
             velocityChange.y = CalculateJumpForce();
             var timeRatio = t / _jumpControlDuration;
             var tempsDeVole = CalculeAirTime(JumpHeight - timeRatio * (JumpHeight - _minJumpHeight));
-            anim.speed = _jumpRatio / tempsDeVole;
+            //anim.speed = _jumpRatio / tempsDeVole;
 
         }
         else // au cas où
