@@ -1,46 +1,36 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Jaw : MonoBehaviour {
+public class Jaw : Mechanism {
     // Jaw trap : munches the player if they try to go through
 
     public GameObject UpperJaw;
     public GameObject LowerJaw;
     public float Speed;
 
-    private bool _opening = false;
     private float _jawDistance;
     private Vector3 _direction;
 
 	void Start () {
-        _jawDistance = UpperJaw.transform.position.y - LowerJaw.transform.position.y;
         _direction = new Vector3(0, 0, 0);
         _direction = UpperJaw.transform.position - LowerJaw.transform.position;
+        _jawDistance = _direction.y;
 	}
 
-    // If we find a player we MUNCH THE FUCK OUTTA EM
-    void OnTriggerStay(Collider coll)
+    // Close the jaw
+    protected override void runMechanism()
     {
-        _opening = false;
-        CloseJaw();
-    }
-
-    // Player left, open the jaws
-    void OnTriggerExit(Collider coll)
-    {
-        _opening = true;
-    }
-
-    void CloseJaw()
-    {
+        _direction = new Vector3(0, 1, 0);
         if (UpperJaw.transform.position.y - transform.position.y > _jawDistance / 4)
         {
+            // Move upper jaw down and lower jaw up to close the jaw
             UpperJaw.transform.Translate(- _direction * Speed * Time.deltaTime);
             LowerJaw.transform.Translate(_direction * Speed * Time.deltaTime);
         }
     }
 
-    void OpenJaw()
+    // Open the jaw
+    protected override void backToDefaultPosition()
     {
         if (UpperJaw.transform.position.y - transform.position.y < _jawDistance / 2)
         {
@@ -48,10 +38,4 @@ public class Jaw : MonoBehaviour {
             LowerJaw.transform.Translate(-_direction * Speed * Time.deltaTime);
         }
     }
-
-	
-	void Update () {
-        if (_opening)
-            OpenJaw();
-	}
 }

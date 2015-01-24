@@ -4,20 +4,16 @@ using System.Collections;
 public class Button : MonoBehaviour {
     //class button to activate any mechanism
 
-    public GameObject objet;
+    public GameObject Target;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-    void OnTriggerEnter(Collider coll)
+    void OnCollisionEnter(Collision coll)
     {
-        objet.GetComponent<platformrotation>().EnableMechanism();
+        if (coll.collider.GetComponentInParent<Player>())
+            Target.GetComponent<Mechanism>().EnableMechanism();
+    }
+
+    void OnCollisionExit(Collision coll)
+    {
+        Target.GetComponent<Mechanism>().DisableMechanism();
     }
 }

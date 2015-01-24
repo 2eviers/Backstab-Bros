@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Mechanism : MonoBehaviour {
-    //class template for any Mechanism controled by a button
+    // Class template for any Mechanism controled by a button
 
     bool enableMechanism = false;
 
@@ -21,13 +21,15 @@ public class Mechanism : MonoBehaviour {
         enableMechanism = false;
     }
 
-    //to run the mechanism, this function must be reimplemented
+    // To run the mechanism, this function must be reimplemented
+    // Called every frame if mechanism is enabled
     protected virtual void runMechanism()
     {
 
     }
 
-    //to go back on the default position, this function must be reimplemented
+    // To go back to the default position, this function must be reimplemented
+    // Called every frame if mechanism is disabled
     protected virtual void backToDefaultPosition()
     {
 
