@@ -22,7 +22,7 @@ public class TestCubeControls : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.UpArrow))
         {
-            _Direction.z -= 1;
+            _Direction.y -= 1;
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -30,7 +30,7 @@ public class TestCubeControls : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.DownArrow))
         {
-            _Direction.z += 1;
+            _Direction.y += 1;
         }
 
         if (_Direction != new Vector3(0, 0, 0))
