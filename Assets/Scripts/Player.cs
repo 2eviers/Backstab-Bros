@@ -60,7 +60,8 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
 
-        var axis = new Vector3(Input.GetAxis(_prefixController+"Horizontal"), 0);
+        var axis = new Vector3(Input.GetAxis(_prefixController+"Horizontal"),0, 0);
+        axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"),0, 0);
         if (grounded)
         {
             if (axis.magnitude > 0)
