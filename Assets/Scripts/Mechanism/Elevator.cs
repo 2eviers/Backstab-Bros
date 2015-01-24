@@ -16,12 +16,12 @@ public class Elevator : Mechanism {
         _originalHeight = Platform.transform.position.y;
     }
 
+    // Go up / down if the platform is on the bottom / top, and loop
     protected override void runMechanism()
     {
         float height = Axis.transform.localScale.y;
-        float dist = Platform.transform.position.y - Axis.transform.position.y;
 
-        // si on est en haut, _upward = false
+        // If it's at the top, _upward = false (going down)
         if (Platform.transform.position.y - Axis.transform.position.y >= height)
             _upward = -1;
         else if (Platform.transform.position.y - Axis.transform.position.y <= -height)
@@ -32,6 +32,7 @@ public class Elevator : Mechanism {
         Platform.transform.Translate(dir * Speed * _upward * Time.deltaTime);
     }
 
+    // Go back to original position
     protected override void backToDefaultPosition()
     {
         Vector3 dir = new Vector3(0, 1, 0);

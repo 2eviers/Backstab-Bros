@@ -8,7 +8,6 @@ public class Jaw : Mechanism {
     public GameObject LowerJaw;
     public float Speed;
 
-    private bool _opening = false;
     private float _jawDistance;
     private Vector3 _direction;
 
@@ -18,16 +17,19 @@ public class Jaw : Mechanism {
         _jawDistance = _direction.y;
 	}
 
+    // Close the jaw
     protected override void runMechanism()
     {
         _direction = new Vector3(0, 1, 0);
         if (UpperJaw.transform.position.y - transform.position.y > _jawDistance / 4)
         {
+            // Move upper jaw down and lower jaw up to close the jaw
             UpperJaw.transform.Translate(- _direction * Speed * Time.deltaTime);
             LowerJaw.transform.Translate(_direction * Speed * Time.deltaTime);
         }
     }
 
+    // Open the jaw
     protected override void backToDefaultPosition()
     {
         if (UpperJaw.transform.position.y - transform.position.y < _jawDistance / 2)
