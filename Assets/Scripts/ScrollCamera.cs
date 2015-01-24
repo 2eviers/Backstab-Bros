@@ -34,10 +34,20 @@ public class ScrollCamera : MonoBehaviour {
     /// </summary>
     private void SelectPlayer()
     {
-        if (_forward)
-            _SelectedPlayer = _player1.transform.position.x > _player2.transform.position.x ? _player1 : _player2;
+        if (_player1 != null && _player2 != null)
+        {
+            if (_forward)
+                _SelectedPlayer = _player1.transform.position.x > _player2.transform.position.x ? _player1 : _player2;
+            else
+                _SelectedPlayer = _player1.transform.position.x < _player2.transform.position.x ? _player1 : _player2;
+        }
         else
-            _SelectedPlayer = _player1.transform.position.x < _player2.transform.position.x ? _player1 : _player2;
+        {
+            if (_player1 != null)
+                _SelectedPlayer = _player1;
+            if (_player2 != null)
+                _SelectedPlayer = _player2;
+        }
     }
 
     /// <summary>
@@ -45,21 +55,19 @@ public class ScrollCamera : MonoBehaviour {
     /// </summary>
     private void Switch()
     {
-        if (_forward)
-        {
-            if (LocalPosition(_SelectedPlayer) < 0.25)
+        if (_forward && LocalPosition(_SelectedPlayer) < 0.25)
                 _forward = false;
-        }
-        if (_forward)
-        {
-            if (LocalPosition(_SelectedPlayer) > 0.75)
+           
+        if (!_forward && LocalPosition(_SelectedPlayer) > 0.75)
                 _forward = true;
-        }
     }
 
     private void SetPosition()
     {
-        _positionCible = new Vector3(_SelectedPlayer.transform.position.x, _SelectedPlayer.transform.position.y, Camera.main.transform.position.z);
+        if(_forward && LocalPosition(_SelectedPlayer) > 0.5)
+            _positionCible = new Vector3(_SelectedPlayer.transform.position.x, _SelectedPlayer.transform.position.y, Camera.main.transform.position.z);
+        if (!_forward && LocalPosition(_SelectedPlayer) < 0.5)
+            _positionCible = new Vector3(_SelectedPlayer.transform.position.x, _SelectedPlayer.transform.position.y, Camera.main.transform.position.z);
     }
 
     private void Move()
