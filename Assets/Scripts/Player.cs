@@ -5,7 +5,7 @@ using System.Collections;
 
 [RequireComponent(typeof(Rigidbody))]
 
-public class Player : MonoBehaviour
+public class Player : Caracteristique
 {
     /// <summary>
     /// Cette variable est le préfix des controle dans l'InputManager il vaut "J1" ou "J2"
@@ -52,7 +52,9 @@ public class Player : MonoBehaviour
     /// Temps au moment du saut (nécessaire pour jauger un saut)
     /// </summary>
     private float timerJump;
-
+    /// <summary>
+    /// Facteur à appliquer à une animation pour qu'elle dure une seconde.
+    /// </summary>
     private float _jumpRatio = 15f/30f;
 
     private Animator anim;
@@ -68,54 +70,31 @@ public class Player : MonoBehaviour
 
         var axis = new Vector3(Input.GetAxis(_prefixController+"Horizontal"),0, 0);
         axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"),0, 0);
+
+        //Si le personnage touche le sol
         if (grounded>0)
         {
             anim.speed = Mathf.Abs(rigidbody.velocity.x);
+            //Si l'input est nul on se laisse aller par l'inertie.
             if (axis.magnitude > 0)
             {
                 // Calcule la vitesse à atteindre
                 var targetVelocity = transform.TransformDirection(axis);
                 targetVelocity *= MaxSpeed;
 
-                // Apply a force that attempts to reach our target velocity
-                Vector3 velocity = rigidbody.velocity;
-                Vector3 velocityChange = (targetVelocity - velocity);
-                var maxVelChan = _maxAcceleration;
-                velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelChan, maxVelChan);
-                velocityChange.z = 0;
-                velocityChange.y = 0;
-                rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+                ApplySpeedForce(targetVelocity);
             }
-            // Jump
+            // Jump initial
             if (CanJump && Input.GetButton(_prefixController+"Jump"))
             {
-                var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(_minJumpHeight);
-                rigidbody.velocity = new Vector3(rigidbody.velocity.x, initialJumpSpeed, rigidbody.velocity.z);
-                timerJump = Time.time;
-                var tempsDeVole = 2*initialJumpSpeed/(Physics.gravity.magnitude);
-                anim.speed = _jumpRatio / tempsDeVole;
+                InitialJump();
             }
         }
         // si le personnage est en vole
         else
-        {   
-            var velocityChange = _maxAccelerationAir * transform.TransformDirection(axis);
-            var t = timerJump + _jumpControlDuration - Time.time;
-            
-            if (CanJump && Input.GetButton(_prefixController+"Jump") && t>0)
-            {
-                velocityChange.y = CalculateJumpForce();
-
-                var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(_minJumpHeight);
-                var finalJumpSpeed = CalculateInitialJumpVerticalSpeed(JumpHeight);
-                var ratio = t/_jumpControlDuration;
-                var tempsDeVole = 2*(finalJumpSpeed - ratio * (finalJumpSpeed - initialJumpSpeed)) 
-                    / (Physics.gravity.magnitude);
-                anim.speed = _jumpRatio / tempsDeVole;
-
-            }
-            
-            rigidbody.AddForce(velocityChange, ForceMode.Force);
+        {
+            axis.y = CanJump ? Mathf.Abs(Input.GetAxis(_prefixController + "Jump")):0;
+            AirControl(axis);
         }
 
         //grounded = false;
@@ -136,16 +115,81 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Calcule la vitesse de saut initiale 
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Retourne la vitesse initiale pour atteindre la hauteur passé en paramètre</returns>
     float CalculateInitialJumpVerticalSpeed(float hauteur)
     {
         return Mathf.Sqrt(2 * hauteur * Physics.gravity.magnitude * rigidbody.mass);
     }
+    /// <summary>
+    /// Calcule la force qui s'applique pour le air contrôle vertical 
+    /// (quand on continue d'appuyer sur jump au début du saut)
+    /// </summary>
+    /// <returns>Retourn la force calculée</returns>
     float CalculateJumpForce()
     {
         float deltaTime = 1/_jumpControlDuration;//Time.fixedDeltaTime / _jumpControlDuration;
         // From the jump height and gravity we deduce the upwards speed 
         // for the character to reach at the apex.
         return Mathf.Sqrt(2 * (JumpHeight -_minJumpHeight) * Physics.gravity.magnitude * deltaTime);
+    }
+
+    /// <summary>
+    /// Applique les forces necessaire pour atteindre la vitesse targetVelocity
+    /// </summary>
+    /// <param name="targetVelocity"></param>
+    void ApplySpeedForce(Vector3 targetVelocity)
+    {
+        Vector3 velocity = rigidbody.velocity;
+        Vector3 velocityChange = (targetVelocity - velocity);
+        var maxVelChan = _maxAcceleration;
+        velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelChan, maxVelChan);
+        velocityChange.z = 0;
+        velocityChange.y = 0;
+        rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+    }
+    /// <summary>
+    /// Calcule le temps passé en l'air lors d'un saut d'une hauteur de hauteur
+    /// </summary>
+    /// <param name="hauteur"></param>
+    /// <returns>Retourne la valeur calculée</returns>
+    float CalculeAirTime(float hauteur)
+    {
+        var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(hauteur);
+        return (2 * initialJumpSpeed / (Physics.gravity.magnitude));
+    }
+    /// <summary>
+    /// Applique les force nécessaire au saut initial
+    /// </summary>
+    void InitialJump()
+    {
+        var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(_minJumpHeight);
+        rigidbody.velocity = new Vector3(rigidbody.velocity.x, initialJumpSpeed, rigidbody.velocity.z);
+        timerJump = Time.time;
+
+        var tempsDeVole = CalculeAirTime(_minJumpHeight);
+        anim.speed = _jumpRatio / tempsDeVole; 
+    }
+    /// <summary>
+    /// Applique les forces de air contrôle en fonction des inputs axis
+    /// </summary>
+    /// <param name="axis"></param>
+    void AirControl(Vector3 axis)
+    {
+        bool jump = axis.y != 0;
+        var velocityChange = _maxAccelerationAir * transform.TransformDirection(axis);
+        var t = timerJump + _jumpControlDuration - Time.time;
+
+        if (jump && t > 0)
+        {
+            velocityChange.y = CalculateJumpForce();
+            var timeRatio = t / _jumpControlDuration;
+            var tempsDeVole = CalculeAirTime(JumpHeight - timeRatio * (JumpHeight - _minJumpHeight));
+            anim.speed = _jumpRatio / tempsDeVole;
+
+        }
+        else // au cas où
+            velocityChange.y = 0;
+
+        rigidbody.AddForce(velocityChange, ForceMode.Force);
     }
 }
