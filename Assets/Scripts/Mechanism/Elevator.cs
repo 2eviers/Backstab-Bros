@@ -28,8 +28,10 @@ public class Elevator : Mechanism {
             _upward = 1;
 
         Vector3 dir = new Vector3(0, 1, 0);
+        Platform.rigidbody.MovePosition(Platform.rigidbody.position + dir * Speed * _upward * Time.fixedDeltaTime);
+       // rigidbody.transform.Translate(dir * Speed * _upward * Time.fixedDeltaTime);
 
-        Platform.transform.Translate(dir * Speed * _upward * Time.deltaTime);
+       // Platform.transform.Translate(dir * Speed * _upward * Time.deltaTime);
     }
 
     // Go back to original position
@@ -42,6 +44,9 @@ public class Elevator : Mechanism {
             _upward = -1;
         else if (Platform.transform.position.y < _originalHeight)
             _upward = 1;
-        Platform.transform.Translate(dir * Speed * _upward * Time.deltaTime);
+        Platform.rigidbody.MovePosition(Platform.rigidbody.position + dir * Speed * _upward * Time.fixedDeltaTime);
+        //rigidbody.transform.Translate(dir * Speed * _upward * Time.fixedDeltaTime);
+
+      // Platform.transform.Translate(dir * Speed * _upward * Time.deltaTime);
     }
 }

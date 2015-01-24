@@ -9,9 +9,11 @@ public class Button : MonoBehaviour {
 
     private float _timer;
 
-    void OnCollisionEnter(Collision coll)
-    {        
-        if (coll.collider.GetComponentInParent<Player>()            )
+ 
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if (coll.GetComponentInParent<Player>())
         {
             Mechanism m = Target.GetComponent<Mechanism>();
             m.EnableMechanism();
@@ -20,14 +22,16 @@ public class Button : MonoBehaviour {
         }
     }
 
-    void OnCollisionExit(Collision coll)
+    void OnTriggerExit(Collider coll)
     {
         _timer = Time.time;
+        Target.GetComponent<Mechanism>().DisableMechanism();
     }
 
     void Update()
     {
-        if (Time.time - _timer > Cooldown)
+       /* if (Time.time - _timer > Cooldown)
             Target.GetComponent<Mechanism>().DisableMechanism();
+       y//*/
     }
 }
