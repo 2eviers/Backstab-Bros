@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Button : MonoBehaviour {
+    //class button to activate any mechanism
 
     public GameObject objet;
 
