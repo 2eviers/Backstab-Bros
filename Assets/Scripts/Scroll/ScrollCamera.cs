@@ -24,11 +24,17 @@ public class ScrollCamera : MonoBehaviour {
     /// </summary>
     /// <param name="player"></param>
     /// <returns></returns>
-    private float LocalPosition(GameObject player)
+    private float LocalPositionX(GameObject player)
     {
         float pixel = player.transform.position.x - Camera.main.transform.position.x;
         var max = Mathf.Tan((Mathf.Deg2Rad*Camera.main.fieldOfView)/2)*(_player1.transform.position.z - Camera.main.transform.position.z);
         return pixel/max;
+    }
+    private float LocalPositionY(GameObject player)
+    {
+        float pixel = player.transform.position.y - Camera.main.transform.position.y;
+        var max = Mathf.Tan((Mathf.Deg2Rad * Camera.main.fieldOfView) / 2) * (_player1.transform.position.z - Camera.main.transform.position.z);
+        return pixel / max;
     }
 
     /// <summary>
@@ -58,25 +64,25 @@ public class ScrollCamera : MonoBehaviour {
     /// </summary>
     private void Switch()
     {
-        if (_forward && LocalPosition(_SelectedPlayer) < -0.8)
+        if (_forward && LocalPositionX(_SelectedPlayer) < -0.8)
             _forward = false;
            
-        if (!_forward && LocalPosition(_SelectedPlayer) > 0.8)
+        if (!_forward && LocalPositionX(_SelectedPlayer) > 0.8)
                 _forward = true;
     }
 
     private void SetPosition()
     {
-        float posY = 0;
+        float posY;
         if (_player1 != null && _player2 != null)
-            posY = (_player1.transform.position.y + _player2.transform.position.y)/2;
+            posY = (_player1.transform.position.y + _player2.transform.position.y) / 2;
 
         else
-            posY = _SelectedPlayer.transform.position.y;
+           posY = _SelectedPlayer.transform.position.y;
 
-        if(_forward && LocalPosition(_SelectedPlayer) > 0)
+        if(_forward && LocalPositionX(_SelectedPlayer) > 0)
             _positionCible = new Vector3(_SelectedPlayer.transform.position.x, posY , Camera.main.transform.position.z);
-        if (!_forward && LocalPosition(_SelectedPlayer) < 0)
+        if (!_forward && LocalPositionX(_SelectedPlayer) < 0)
             _positionCible = new Vector3(_SelectedPlayer.transform.position.x, posY, Camera.main.transform.position.z);
     }
 
@@ -89,9 +95,11 @@ public class ScrollCamera : MonoBehaviour {
     {
         if (_player1 != null && _player2 != null)
         {
-            if(Mathf.Abs(LocalPosition(_player1) - LocalPosition(_player2)) > 1.5 && Camera.main.transform.position.z > _initialCameraPosZ - 5)
+            if((Mathf.Abs(LocalPositionX(_player1) - LocalPositionX(_player2)) > 1.5 && Camera.main.transform.position.z > _initialCameraPosZ - 5) ||
+                Mathf.Abs(LocalPositionY(_player1) - LocalPositionY(_player2)) > 1 && Camera.main.transform.position.z > _initialCameraPosZ - 5)
                 Camera.main.transform.Translate(0, 0, -5 * Time.deltaTime);
-            if(Mathf.Abs(LocalPosition(_player1) - LocalPosition(_player2)) < 1.3 && Camera.main.transform.position.z < _initialCameraPosZ)
+            if(Mathf.Abs(LocalPositionX(_player1) - LocalPositionX(_player2)) < 1.3 && Camera.main.transform.position.z < _initialCameraPosZ &&
+                Mathf.Abs(LocalPositionY(_player1) - LocalPositionY(_player2)) < 0.8)
                 Camera.main.transform.Translate(0, 0, 5 * Time.deltaTime);
         }
     }
