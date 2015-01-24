@@ -10,7 +10,7 @@ public class Player : Caracteristique
     /// <summary>
     /// Cette variable est le préfix des controle dans l'InputManager il vaut "J1" ou "J2"
     /// </summary>
-    [SerializeField] 
+    //[SerializeField] 
     public string _prefixController = "J1";
     /// <summary>
     /// Vitesse maximal de l'avatar
@@ -93,7 +93,7 @@ public class Player : Caracteristique
         // si le personnage est en vole
         else
         {
-            axis.y = CanJump ? Mathf.Abs(Input.GetAxis(_prefixController + "Jump")):0;
+            axis.y = CanJump ? Mathf.Abs(Input.GetAxis(_prefixController + "Jump")) : 0;
             AirControl(axis);
         }
 
