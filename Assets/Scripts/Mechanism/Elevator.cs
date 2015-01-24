@@ -36,12 +36,12 @@ public class Elevator : Mechanism {
     protected override void backToDefaultPosition()
     {
         Vector3 dir = new Vector3(0, 1, 0);
+        if (Mathf.Abs(Platform.transform.position.y - _originalHeight) < .1)
+            return;
         if (Platform.transform.position.y > _originalHeight)
             _upward = -1;
         else if (Platform.transform.position.y < _originalHeight)
             _upward = 1;
-        else
-            return;
         Platform.transform.Translate(dir * Speed * _upward * Time.deltaTime);
     }
 }
