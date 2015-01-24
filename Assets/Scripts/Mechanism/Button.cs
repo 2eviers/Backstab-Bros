@@ -19,6 +19,11 @@ public class Button : MonoBehaviour {
             m.EnableMechanism();
             if (m.audio && !m.audio.isPlaying)
                 m.audio.Play();
+            //Timer
+            if (coll.GetComponentInParent<Player>()._prefixController == "J1")
+                Camera.main.GetComponent<DeathType>().ActivePuzzleP2 = true;
+            if (coll.GetComponentInParent<Player>()._prefixController == "J2")
+                Camera.main.GetComponent<DeathType>().ActivePuzzleP1 = true;
         }
     }
 

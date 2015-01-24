@@ -26,6 +26,12 @@ public class PushAttack : MonoBehaviour {
                  Debug.Log("vectX =" + pushVectX + "vectY =" + pushVectY   );
                  objectToPush.GetComponent<Rigidbody>().AddForce(new Vector3(pushForceRatioX*pushVectX, -pushVectY*pushForceRatioY));
             }
+
+            //Timer
+            if (gameObject.GetComponentInParent<Player>()._prefixController == "J1")
+                Camera.main.GetComponent<DeathType>().ActiveSkillP2 = true;
+            if (gameObject.GetComponentInParent<Player>()._prefixController == "J2")
+                Camera.main.GetComponent<DeathType>().ActiveSkillP1 = true;
         }
 	}
 
