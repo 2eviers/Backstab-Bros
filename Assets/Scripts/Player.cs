@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
     /// <summary>
     /// Variable nécessaire à repérer quand le personnage est au sol
     /// </summary>
-    private bool grounded = false;
+    private int grounded = 0;
     /// <summary>
     /// Temps au moment du saut (nécessaire pour jauger un saut)
     /// </summary>
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
 
         var axis = new Vector3(Input.GetAxis(_prefixController+"Horizontal"),0, 0);
         axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"),0, 0);
-        if (grounded)
+        if (grounded>0)
         {
             anim.speed = Mathf.Abs(rigidbody.velocity.x);
             if (axis.magnitude > 0)
@@ -122,14 +122,16 @@ public class Player : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        anim.Play("GoFront");
-        grounded = true;
+        grounded++;
+        if(grounded==0)
+            anim.Play("GoFront");
     }
 
     void OnCollisionExit(Collision collision)
     {
-        anim.Play("Jump");
-        grounded = false;
+        grounded--;
+        if(grounded>0)
+            anim.Play("Jump");
     }
     /// <summary>
     /// Calcule la vitesse de saut initiale 
