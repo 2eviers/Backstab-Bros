@@ -71,6 +71,7 @@ public class Player : Caracteristique
         var axis = new Vector3(Input.GetAxis(_prefixController+"Horizontal"),0, 0);
         axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"),0, 0);
 
+
         //Si le personnage touche le sol
         if (grounded>0)
         {

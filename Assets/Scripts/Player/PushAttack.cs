@@ -4,7 +4,8 @@ using System.Collections;
 public class PushAttack : MonoBehaviour {
 
     bool canPush = false;
-    public int pushForce;
+    public float pushForceRatioX;
+    public float pushForceRatioY;
     GameObject objectToPush;
 
 	// Use this for initialization
@@ -14,15 +15,22 @@ public class PushAttack : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        if (canPush && Input.GetButton(GetComponentInParent<Player>()._prefixController + "Fire1"))
+        if (canPush)
         {
-            objectToPush.GetComponent<Rigidbody>().AddForce(new Vector3(pushForce, 0));
+
+            var pushVectX = Input.GetAxis(GetComponentInParent<Player>()._prefixController + "FireX");
+            var pushVectY = Input.GetAxis(GetComponentInParent<Player>()._prefixController + "FireY");
+          
+
+            if (pushVectX >= 0) { 
+                 Debug.Log("vectX =" + pushVectX + "vectY =" + pushVectY   );
+                 objectToPush.GetComponent<Rigidbody>().AddForce(new Vector3(pushForceRatioX*pushVectX, -pushVectY*pushForceRatioY));
+            }
         }
 	}
 
     void OnTriggerEnter(Collider coll)
-    {
-        Debug.Log(coll.gameObject.GetComponentInParent<Player>()._prefixController + "enter");
+    {   
         canPush = (coll.gameObject.GetComponentInParent<Player>() != null);
         if (canPush) objectToPush = coll.gameObject.GetComponentInParent<Rigidbody>().gameObject;
     }

@@ -5,6 +5,7 @@ public class Mechanism : MonoBehaviour {
     // Class template for any Mechanism controled by a button
 
     bool enableMechanism = false;
+    bool broken = false;
 
 	// Use this for initialization
 	void Start () {
@@ -19,6 +20,11 @@ public class Mechanism : MonoBehaviour {
     public void DisableMechanism()
     {
         enableMechanism = false;
+    }
+
+    public void PermanentlyDisableMechanism()
+    {
+        broken = true;
     }
 
     // To run the mechanism, this function must be reimplemented
@@ -38,6 +44,8 @@ public class Mechanism : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        if (broken)
+            return;
         if (enableMechanism)
         {
             runMechanism();
