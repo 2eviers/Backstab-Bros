@@ -53,8 +53,10 @@ public class Player : MonoBehaviour
     /// </summary>
     private float timerJump;
 
-    private Animator anim;
+    private float _jumpRatio = 15f/30f;
 
+    private Animator anim;
+    
     void Start()
     {
         anim = GetComponentInChildren<Animator>();
@@ -68,8 +70,7 @@ public class Player : MonoBehaviour
         axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"),0, 0);
         if (grounded)
         {
-            anim.Play("GoFront");
-            anim.speed = rigidbody.velocity.magnitude;
+            anim.speed = Mathf.Abs(rigidbody.velocity.x);
             if (axis.magnitude > 0)
             {
                 // Calcule la vitesse à atteindre
@@ -88,46 +89,59 @@ public class Player : MonoBehaviour
             // Jump
             if (CanJump && Input.GetButton(_prefixController+"Jump"))
             {
-                anim.Play("Jump");
-                
-                rigidbody.velocity = new Vector3(rigidbody.velocity.x, CalculateInitialJumpVerticalSpeed(), rigidbody.velocity.z);
+                var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(_minJumpHeight);
+                rigidbody.velocity = new Vector3(rigidbody.velocity.x, initialJumpSpeed, rigidbody.velocity.z);
                 timerJump = Time.time;
+                var tempsDeVole = 2*initialJumpSpeed/(Physics.gravity.magnitude);
+                anim.speed = _jumpRatio / tempsDeVole;
             }
         }
+        // si le personnage est en vole
         else
-        {
+        {   
             var velocityChange = _maxAccelerationAir * transform.TransformDirection(axis);
-            if (CanJump && Input.GetButton(_prefixController+"Jump") && timerJump+_jumpControlDuration > Time.time)
+            var t = timerJump + _jumpControlDuration - Time.time;
+            
+            if (CanJump && Input.GetButton(_prefixController+"Jump") && t>0)
             {
                 velocityChange.y = CalculateJumpForce();
-            }
 
-            rigidbody.AddForce(velocityChange, ForceMode.Acceleration);
+                var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(_minJumpHeight);
+                var finalJumpSpeed = CalculateInitialJumpVerticalSpeed(JumpHeight);
+                var ratio = t/_jumpControlDuration;
+                var tempsDeVole = 2*(finalJumpSpeed - ratio * (finalJumpSpeed - initialJumpSpeed)) 
+                    / (Physics.gravity.magnitude);
+                anim.speed = _jumpRatio / tempsDeVole;
+
+            }
+            
+            rigidbody.AddForce(velocityChange, ForceMode.Force);
         }
 
         //grounded = false;
     }
-
     void OnCollisionEnter(Collision collision)
     {
+        anim.Play("GoFront");
         grounded = true;
     }
 
     void OnCollisionExit(Collision collision)
     {
+        anim.Play("Jump");
         grounded = false;
     }
     /// <summary>
     /// Calcule la vitesse de saut initiale 
     /// </summary>
     /// <returns></returns>
-    float CalculateInitialJumpVerticalSpeed()
+    float CalculateInitialJumpVerticalSpeed(float hauteur)
     {
-        return Mathf.Sqrt(2 * _minJumpHeight * Physics.gravity.magnitude);
+        return Mathf.Sqrt(2 * hauteur * Physics.gravity.magnitude * rigidbody.mass);
     }
     float CalculateJumpForce()
     {
-        float deltaTime = 1;//Time.fixedDeltaTime / _jumpControlDuration;
+        float deltaTime = 1/_jumpControlDuration;//Time.fixedDeltaTime / _jumpControlDuration;
         // From the jump height and gravity we deduce the upwards speed 
         // for the character to reach at the apex.
         return Mathf.Sqrt(2 * (JumpHeight -_minJumpHeight) * Physics.gravity.magnitude * deltaTime);
