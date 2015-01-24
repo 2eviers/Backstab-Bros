@@ -1,0 +1,127 @@
+﻿using System;
+using System.Runtime.InteropServices;
+using UnityEngine;
+using System.Collections;
+
+[RequireComponent(typeof(Rigidbody))]
+
+public class Player : MonoBehaviour
+{
+    /// <summary>
+    /// Cette variable est le préfix des controle dans l'InputManager il vaut "J1" ou "J2"
+    /// </summary>
+    [SerializeField] 
+    private string _prefixController = "J1";
+    /// <summary>
+    /// Vitesse maximal de l'avatar
+    /// </summary>
+    public float MaxSpeed = 10.0f;
+    /// <summary>
+    /// Hauteur maximal de l'avatar
+    /// </summary>
+    public float JumpHeight = 2.0f;
+    /// <summary>
+    /// Temps de jump controle (temps pendant lequel tu peux augmenter la hauteur du saut
+    /// </summary>
+    [SerializeField]
+    private float _jumpControlDuration = 0.5f;
+    /// <summary>
+    /// Acceleration maximale
+    /// </summary>
+    [SerializeField]
+    private float _maxAcceleration = 5.0f;
+    /// <summary>
+    /// Acceleration maximale en l'air
+    /// </summary>
+    [SerializeField]
+    private float _maxAccelerationAir = 1.0f;
+    /// <summary>
+    /// Acceleration maximale en l'air
+    /// </summary>
+    [SerializeField]
+    private float _minJumpHeight = 1.0f;
+    /// <summary>
+    /// Vaut true si et seulement si l'avatar peut sauter
+    /// </summary>
+    public bool CanJump = true;
+    /// <summary>
+    /// Variable nécessaire à repérer quand le personnage est au sol
+    /// </summary>
+    private bool grounded = false;
+    /// <summary>
+    /// Temps au moment du saut (nécessaire pour jauger un saut)
+    /// </summary>
+    private float timerJump;
+
+
+
+
+
+    void FixedUpdate()
+    {
+
+        var axis = new Vector3(Input.GetAxis(_prefixController+"Horizontal"), 0);
+        if (grounded)
+        {
+            if (axis.magnitude > 0)
+            {
+                // Calcule la vitesse à atteindre
+                var targetVelocity = transform.TransformDirection(axis);
+                targetVelocity *= MaxSpeed;
+
+                // Apply a force that attempts to reach our target velocity
+                Vector3 velocity = rigidbody.velocity;
+                Vector3 velocityChange = (targetVelocity - velocity);
+                var maxVelChan = _maxAcceleration;
+                velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelChan, maxVelChan);
+                velocityChange.z = 0;
+                velocityChange.y = 0;
+                rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+            }
+            // Jump
+            if (CanJump && Input.GetButton(_prefixController+"Jump"))
+            {
+                rigidbody.velocity = new Vector3(rigidbody.velocity.x, CalculateInitialJumpVerticalSpeed(), rigidbody.velocity.z);
+                timerJump = Time.time;
+            }
+        }
+        else
+        {
+            var velocityChange = _maxAccelerationAir * transform.TransformDirection(axis);
+            if (CanJump && Input.GetButton(_prefixController+"Jump") && timerJump+_jumpControlDuration > Time.time)
+            {
+                velocityChange.y = CalculateJumpForce();
+            }
+
+            rigidbody.AddForce(velocityChange, ForceMode.Acceleration);
+        }
+
+        //grounded = false;
+    }
+
+    private int count = 0;
+    void OnCollisionEnter(Collision collision)
+    {
+        grounded = true;
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        grounded = false;
+    }
+    /// <summary>
+    /// Calcule la vitesse de saut initiale 
+    /// </summary>
+    /// <returns></returns>
+    float CalculateInitialJumpVerticalSpeed()
+    {
+        return Mathf.Sqrt(2 * _minJumpHeight * Physics.gravity.magnitude);
+    }
+    float CalculateJumpForce()
+    {
+        float deltaTime = Time.fixedDeltaTime / _jumpControlDuration;
+        // From the jump height and gravity we deduce the upwards speed 
+        // for the character to reach at the apex.
+        return Mathf.Sqrt(2 * (JumpHeight -_minJumpHeight) * Physics.gravity.magnitude * deltaTime);
+    }
+}

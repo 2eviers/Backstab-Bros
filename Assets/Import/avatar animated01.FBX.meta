@@ -1,0 +1,295 @@
+fileFormatVersion: 2
+guid: 11cf3cd55aaee3e4aab892e76cbe2987
+ModelImporter:
+  serializedVersion: 16
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Object001
+    100004: Object002
+    100006: Object003
+    100008: Sphere002
+    100010: Sphere003
+    100012: Sphere004
+    100014: Sphere005
+    100016: Sphere006
+    400000: //RootNode
+    400002: Object001
+    400004: Object002
+    400006: Object003
+    400008: Sphere002
+    400010: Sphere003
+    400012: Sphere004
+    400014: Sphere005
+    400016: Sphere006
+    2300000: //RootNode
+    2300002: Object001
+    2300004: Object002
+    2300006: Object003
+    2300008: Sphere002
+    2300010: Sphere003
+    2300012: Sphere004
+    2300014: Sphere005
+    2300016: Sphere006
+    3300000: //RootNode
+    3300002: Object001
+    3300004: Object002
+    3300006: Object003
+    3300008: Sphere002
+    3300010: Sphere003
+    3300012: Sphere004
+    3300014: Sphere005
+    3300016: Sphere006
+    4300000: Sphere001
+    4300002: Object002
+    4300004: Sphere003
+    4300006: Sphere002
+    4300008: Object001
+    4300010: Object003
+    4300012: Sphere004
+    4300014: Sphere005
+    4300016: Sphere006
+    6400000: //RootNode
+    6400002: Object001
+    6400004: Object002
+    6400006: Object003
+    6400008: Sphere002
+    6400010: Sphere003
+    6400012: Sphere004
+    6400014: Sphere005
+    6400016: Sphere006
+    7400000: Take 001
+    7400002: GoFront
+    7400004: Jump
+    7400006: Return
+    7400008: GoBack
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: GoFront
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Object001
+        weight: 1
+      - path: Object002
+        weight: 1
+      - path: Object003
+        weight: 1
+      - path: Sphere002
+        weight: 1
+      - path: Sphere003
+        weight: 1
+      - path: Sphere004
+        weight: 1
+      - path: Sphere005
+        weight: 1
+      - path: Sphere006
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Jump
+      takeName: Take 001
+      firstFrame: 55
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Object001
+        weight: 1
+      - path: Object002
+        weight: 1
+      - path: Object003
+        weight: 1
+      - path: Sphere002
+        weight: 1
+      - path: Sphere003
+        weight: 1
+      - path: Sphere004
+        weight: 1
+      - path: Sphere005
+        weight: 1
+      - path: Sphere006
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: Return
+      takeName: Take 001
+      firstFrame: 80
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Object001
+        weight: 1
+      - path: Object002
+        weight: 1
+      - path: Object003
+        weight: 1
+      - path: Sphere002
+        weight: 1
+      - path: Sphere003
+        weight: 1
+      - path: Sphere004
+        weight: 1
+      - path: Sphere005
+        weight: 1
+      - path: Sphere006
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: GoBack
+      takeName: Take 001
+      firstFrame: 91
+      lastFrame: 130
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Object001
+        weight: 1
+      - path: Object002
+        weight: 1
+      - path: Object003
+        weight: 1
+      - path: Sphere002
+        weight: 1
+      - path: Sphere003
+        weight: 1
+      - path: Sphere004
+        weight: 1
+      - path: Sphere005
+        weight: 1
+      - path: Sphere006
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: .100000001
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
