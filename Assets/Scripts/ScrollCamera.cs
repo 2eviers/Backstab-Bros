@@ -25,7 +25,7 @@ public class ScrollCamera : MonoBehaviour {
     private float LocalPosition(GameObject player)
     {
         float pixel = player.transform.position.x - Camera.main.transform.position.x;
-        var max = Mathf.Tan(Camera.main.fieldOfView/2)*(_player1.transform.position.z - Camera.main.transform.position.z);
+        var max = Mathf.Tan((Mathf.Deg2Rad*Camera.main.fieldOfView)/2)*(_player1.transform.position.z - Camera.main.transform.position.z);
         return pixel/max;
     }
 
@@ -55,24 +55,26 @@ public class ScrollCamera : MonoBehaviour {
     /// </summary>
     private void Switch()
     {
-        if (_forward && LocalPosition(_SelectedPlayer) < 0.25)
-                _forward = false;
+        if (_forward && LocalPosition(_SelectedPlayer) < -0.8)
+            _forward = false;
            
-        if (!_forward && LocalPosition(_SelectedPlayer) > 0.75)
-                _forward = true;
+        //if (!_forward && LocalPosition(_SelectedPlayer) > 0.8)
+        //        _forward = true;
+        if(!_forward && (LocalPosition(_player1) > 1.5 || LocalPosition(_player2) > 1.5))
+            _forward = true;
     }
 
     private void SetPosition()
     {
-        if(_forward && LocalPosition(_SelectedPlayer) > 0.5)
+        if(_forward && LocalPosition(_SelectedPlayer) > 0)
             _positionCible = new Vector3(_SelectedPlayer.transform.position.x, _SelectedPlayer.transform.position.y, Camera.main.transform.position.z);
-        if (!_forward && LocalPosition(_SelectedPlayer) < 0.5)
+        if (!_forward && LocalPosition(_SelectedPlayer) < 0)
             _positionCible = new Vector3(_SelectedPlayer.transform.position.x, _SelectedPlayer.transform.position.y, Camera.main.transform.position.z);
     }
 
     private void Move()
     {
-        Camera.main.transform.Translate((_positionCible - Camera.main.transform.position)*Time.deltaTime);
+        Camera.main.transform.Translate((_positionCible - Camera.main.transform.position)*8*Time.deltaTime);
     }
 
 	// Update is called once per frame
