@@ -9,25 +9,34 @@ public class Button : MonoBehaviour {
 
     private float _timer;
 
-    void OnCollisionEnter(Collision coll)
-    {        
-        if (coll.collider.GetComponentInParent<Player>()            )
+ 
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if (coll.GetComponentInParent<Player>())
         {
             Mechanism m = Target.GetComponent<Mechanism>();
             m.EnableMechanism();
             if (m.audio && !m.audio.isPlaying)
                 m.audio.Play();
+            //Timer
+            if (coll.GetComponentInParent<Player>()._prefixController == "J1")
+                Camera.main.GetComponent<DeathType>().ActivePuzzleP2 = true;
+            if (coll.GetComponentInParent<Player>()._prefixController == "J2")
+                Camera.main.GetComponent<DeathType>().ActivePuzzleP1 = true;
         }
     }
 
-    void OnCollisionExit(Collision coll)
+    void OnTriggerExit(Collider coll)
     {
         _timer = Time.time;
+        Target.GetComponent<Mechanism>().DisableMechanism();
     }
 
     void Update()
     {
-        if (Time.time - _timer > Cooldown)
+       /* if (Time.time - _timer > Cooldown)
             Target.GetComponent<Mechanism>().DisableMechanism();
+       y//*/
     }
 }
