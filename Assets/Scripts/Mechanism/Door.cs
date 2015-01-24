@@ -8,6 +8,7 @@ public class Door : Mechanism {
 
     private float _initialPosition;
     private Vector3 _direction;
+    private float _height;
 
     void Start()
     {
@@ -17,7 +18,6 @@ public class Door : Mechanism {
     // Lift the door
     protected override void runMechanism()
     {
-        Debug.Log(this.transform.localScale.y);
         bool b;
         if (Upward)
             b = this.transform.position.y >= _initialPosition + this.transform.localScale.y;
