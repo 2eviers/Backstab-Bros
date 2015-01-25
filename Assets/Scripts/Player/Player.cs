@@ -20,6 +20,8 @@ public class Player : Caracteristique
     /// Hauteur maximal de l'avatar
     /// </summary>
     public float JumpHeight = 2.0f;
+
+    public float JumpCooldown = 2f;
     /// <summary>
     /// Temps de jump controle (temps pendant lequel tu peux augmenter la hauteur du saut
     /// </summary>
@@ -57,6 +59,10 @@ public class Player : Caracteristique
     /// </summary>
     private float _jumpRatio = 15f/30f;
 
+    /// <summary>
+    /// Il contient la résultante des normales aux points de contact
+    /// </summary>
+    private Vector3 _jumpDir;
     private Animator anim;
 	private Rotation rotor;
     
@@ -118,6 +124,15 @@ public class Player : Caracteristique
         grounded++;
     }
 
+    void OnCollisionStay(Collision collision)
+    {
+        _jumpDir = Vector3.zero;
+        foreach (var cp in collision.contacts)
+        {
+            _jumpDir += cp.normal;
+        }
+    }
+    
     void OnCollisionExit(Collision collision)
     {
         grounded--;
@@ -173,11 +188,17 @@ public class Player : Caracteristique
     /// </summary>
     void InitialJump()
     {
-        var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(_minJumpHeight);
-        rigidbody.velocity = new Vector3(rigidbody.velocity.x, initialJumpSpeed, rigidbody.velocity.z);
-        timerJump = Time.time;
+        if (Time.time < timerJump + JumpCooldown /*CalculeAirTime(_minJumpHeight)*/)
+        {
+            var dir = Vector3.Normalize(_jumpDir);
 
-        var tempsDeVole = CalculeAirTime(_minJumpHeight);
+            _jumpDir = Vector3.zero;
+
+            var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(_minJumpHeight);
+
+            rigidbody.velocity = initialJumpSpeed*dir;
+            timerJump = Time.time;
+        }
         //anim.speed = _jumpRatio / tempsDeVole; 
     }
     /// <summary>
