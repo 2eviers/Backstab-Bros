@@ -43,7 +43,25 @@ public class LevelManager : MonoBehaviour {
 
     private void Upgrade()
     {
-        
+        _deathType.Player1.GetComponentInChildren<PushAttack>().pushForceRatioX +=
+            _deathType.Player1.GetComponentInChildren<PushAttack>().InitPushX*0.025f*
+            _deathType.Player1.GetComponentInParent<Player>().Score;
+
+        _deathType.Player1.GetComponentInChildren<PushAttack>().pushForceRatioY +=
+            _deathType.Player1.GetComponentInChildren<PushAttack>().InitPushY * 0.025f *
+            _deathType.Player1.GetComponentInParent<Player>().Score;
+
+        _deathType.Player1.GetComponentInParent<Player>().Score = 0;
+
+        _deathType.Player2.GetComponentInChildren<PushAttack>().pushForceRatioX +=
+            _deathType.Player2.GetComponentInChildren<PushAttack>().InitPushX * 0.025f *
+            _deathType.Player2.GetComponentInParent<Player>().Score;
+
+        _deathType.Player2.GetComponentInChildren<PushAttack>().pushForceRatioY +=
+            _deathType.Player2.GetComponentInChildren<PushAttack>().InitPushY * 0.025f *
+            _deathType.Player2.GetComponentInParent<Player>().Score;
+
+        _deathType.Player2.GetComponentInParent<Player>().Score = 0;
     }
 
     private void EndProceed(){
@@ -63,7 +81,7 @@ public class LevelManager : MonoBehaviour {
             if (_deathType.Player2State == DeathType.PlayerState.Suicide)
                 _deathType.Player2.GetComponentInParent<Player>().Score -= 20;
             Upgrade();
-            //Application.LoadLevel("Test");
+            Application.LoadLevel("Test");
         }
         
     }

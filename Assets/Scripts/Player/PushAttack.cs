@@ -8,8 +8,13 @@ public class PushAttack : MonoBehaviour {
     public float pushForceRatioY;
     GameObject objectToPush;
 
-	void Start () {
-	
+    public float InitPushX { get; private set; }
+    public float InitPushY { get; private set; }
+
+	void Start ()
+	{
+	    InitPushX = pushForceRatioX;
+	    InitPushY = pushForceRatioY;
 	}
 	
 	void FixedUpdate () {
