@@ -109,19 +109,15 @@ public class Player : Caracteristique
     }
     void OnCollisionStay(Collision collision)
     {
-        var jumpDir = Vector3.zero;
+        _jumpDir = Vector3.zero;
         foreach (var cp in collision.contacts)
         {
-            jumpDir += cp.normal;
+            _jumpDir += cp.normal;
         }
-        jumpDir.Normalize();
-        _jumpDir = Vector3.Normalize(jumpDir + _jumpDir);
     }
     void OnCollisionExit(Collision collision)
     {
         grounded--;
-        if (grounded == 0)
-            _jumpDir = Vector3.zero;
     }
     /// <summary>
     /// Calcule la vitesse de saut initiale
@@ -172,10 +168,10 @@ public class Player : Caracteristique
     /// </summary>
     void InitialJump()
     {
-        if (Time.time > timerJump + 0.2f /*CalculeAirTime(_minJumpHeight)*/)
+        if (Time.time > timerJump + 5 * Time.fixedDeltaTime /*CalculeAirTime(_minJumpHeight)*/)
         {
             var dir = Vector3.Normalize(_jumpDir);
-            dir += new Vector3(0,1,0);
+            dir += new Vector3(0, 1, 0);
             dir.Normalize();
             _jumpDir = Vector3.zero;
             var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(_minJumpHeight);
