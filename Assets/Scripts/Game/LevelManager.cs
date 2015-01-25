@@ -40,6 +40,9 @@ public class LevelManager : MonoBehaviour {
             _end = true;
         if (_finishP2 && _deathType.Player1State != DeathType.PlayerState.Alive)
             _end = true;
+        if (_scene == 0 && (_deathType.Player1State != DeathType.PlayerState.Alive ||
+                            _deathType.Player2State != DeathType.PlayerState.Alive))
+            _end = true;
     }
 
     void OnTriggerEnter(Collider other)

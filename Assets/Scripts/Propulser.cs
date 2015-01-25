@@ -16,6 +16,7 @@ public class Propulser : MonoBehaviour
 
     void Start()
     {
+        
     }
 
     void OnTriggerEnter(Collider coll)
@@ -59,5 +60,6 @@ public class Propulser : MonoBehaviour
            }
         if (_enabled && ok2)
             r2.AddForce(Force);
+        Debug.Log(ok1 + " " + ok2 + " " + _enabled);
     }
 }
