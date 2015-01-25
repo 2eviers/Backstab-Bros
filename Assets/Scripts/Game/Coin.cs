@@ -10,9 +10,12 @@ public class Coin : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        other.gameObject.GetComponentInParent<Player>().Score++;
-        Destroy(gameObject);
-        
+        if (other.gameObject.GetComponentInParent<Player>() != null)
+        {
+            other.gameObject.GetComponentInParent<Player>().Score++;
+            Destroy(gameObject);
+        }
+
     }
 	
 	// Update is called once per frame
