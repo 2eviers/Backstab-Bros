@@ -81,7 +81,7 @@ public class LevelManager : MonoBehaviour {
             if (_deathType.Player2State == DeathType.PlayerState.Suicide)
                 _deathType.Player2.GetComponentInParent<Player>().Score -= 20;
             Upgrade();
-            Application.LoadLevel("Test");
+            Application.LoadLevel("Level2");
         }
         
     }
