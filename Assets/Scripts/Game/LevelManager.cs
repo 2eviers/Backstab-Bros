@@ -8,7 +8,9 @@ public class LevelManager : MonoBehaviour {
         _end = false;
         _finishP1 = false;
         _finishP2 = false;
-	    _respawn = false;
+	    //_deathType.Player1.GetComponent<Player>().anim.SetBool("Death", true);
+        //_deathType.Player2.GetComponent<Player>().anim.SetBool("Death", true);
+	    _respawn = true;
 	    _deathType = Camera.main.GetComponent<DeathType>();
         //_deathType.Player1.GetComponent<Player>().
 	}
@@ -20,6 +22,7 @@ public class LevelManager : MonoBehaviour {
     private bool _finishP1;
     private bool _finishP2;
     private bool _respawn;
+    [SerializeField] private int _scene;
 
     //utilisation de deathtype
     //dans le trigger on cherche lequel et on regarde ceux qui sont en vie.
@@ -102,7 +105,13 @@ public class LevelManager : MonoBehaviour {
             if (_deathType.Player2State == DeathType.PlayerState.Suicide)
                 _deathType.Player2.GetComponentInParent<Player>().Score -= 20;
             Upgrade();
-            Application.LoadLevel("Level2");
+            if (_scene == 0)
+            {
+                Destroy(Camera.main);
+                Destroy(_deathType.Player1);
+                Destroy(_deathType.Player2);
+            }
+            Application.LoadLevel(_scene);
         }
         
     }
