@@ -9,13 +9,15 @@ public class Coin : MonoBehaviour {
 	    //gameObject.GetComponent<AudioSource>().enabled = false;
 	}
 
+    public AudioClip CoinSound;
+
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponentInParent<Player>() != null)
         {
             other.gameObject.GetComponentInParent<Player>().Score++;
             //gameObject.GetComponent<AudioSource>().enabled = true;
-            gameObject.audio.Play();
+            AudioSource.PlayClipAtPoint(CoinSound,transform.position);
             //gameObject.GetComponent<AudioSource>().Play();
             Destroy(gameObject);
         }
