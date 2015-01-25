@@ -10,10 +10,12 @@ public class Caracteristique : MonoBehaviour
     private int _life;
     public int Force = 10;
     public int Score;
+    protected Animator anim;
 
 	// Use this for initialization
-	void Start ()
+	protected void Start ()
 	{
+        anim = GetComponentInChildren<Animator>();
 	    _life = MaxLife;
 	    Score = 0;
 	}
@@ -50,7 +52,7 @@ public class Caracteristique : MonoBehaviour
     void Suicide()
     {
         ////appeler l'animation de mort et desactiver le script de controle
-        //animation.play("mort");
+        anim.SetBool("Die",true);
         GetComponent<Player>().enabled = false;
     }
 

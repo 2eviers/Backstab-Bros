@@ -2,15 +2,13 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
 using System.Collections;
-
 [RequireComponent(typeof(Rigidbody))]
-
 public class Player : Caracteristique
 {
     /// <summary>
     /// Cette variable est le préfix des controle dans l'InputManager il vaut "J1" ou "J2"
     /// </summary>
-    //[SerializeField] 
+    //[SerializeField]
     public string _prefixController = "J1";
     /// <summary>
     /// Vitesse maximal de l'avatar
@@ -55,42 +53,32 @@ public class Player : Caracteristique
     /// <summary>
     /// Facteur à appliquer à une animation pour qu'elle dure une seconde.
     /// </summary>
-    private float _jumpRatio = 15f/30f;
-
+    private float _jumpRatio = 15f / 30f;
     /// <summary>
     /// Il contient la résultante des normales aux points de contact
     /// </summary>
     private Vector3 _jumpDir;
-    private Animator anim;
-	private Rotation rotor;
-    
+    private Rotation rotor;
     void Start()
     {
-        anim = GetComponentInChildren<Animator>();
-		rotor = GetComponentInChildren<Rotation> ();
+        base.Start();
+        rotor = GetComponentInChildren<Rotation>();
         DontDestroyOnLoad(gameObject);
     }
-
-
     void FixedUpdate()
     {
-
-        var axis = new Vector3(Input.GetAxis(_prefixController+"Horizontal"),0, 0);
-		axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"),0, 0);
-
-
+        var axis = new Vector3(Input.GetAxis(_prefixController + "Horizontal"), 0, 0);
+        axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"), 0, 0);
         float h = axis.x;
-
-		anim.SetBool ("Walking", h!=0f);
-		if(axis.x!=0)
-			rotor.turn (axis.x > 0);
-
+        anim.SetBool("Walking", h != 0f);
+        if (axis.x != 0)
+            rotor.turn(axis.x > 0);
         //Si le personnage touche le sol
-        if (grounded>0)
+        if (grounded > 0)
         {
-			if(anim.GetBool("Jump")== true)
-				anim.SetBool("Jump", false);
-			//anim.speed = 1;
+            if (anim.GetBool("Jump") == true)
+                anim.SetBool("Jump", false);
+            //anim.speed = 1;
             //anim.speed = Mathf.Abs(rigidbody.velocity.x);
             //Si l'input est nul on se laisse aller par l'inertie.
             if (axis.magnitude > 0)
@@ -98,14 +86,13 @@ public class Player : Caracteristique
                 // Calcule la vitesse à atteindre
                 var targetVelocity = transform.TransformDirection(axis);
                 targetVelocity *= MaxSpeed;
-
                 ApplySpeedForce(targetVelocity);
             }
             // Jump initial
-            if (CanJump && Input.GetButton(_prefixController+"Jump"))
+            if (CanJump && Input.GetButton(_prefixController + "Jump"))
             {
                 InitialJump();
-				anim.SetBool("Jump", true);
+                anim.SetBool("Jump", true);
             }
         }
         // si le personnage est en vole
@@ -114,14 +101,12 @@ public class Player : Caracteristique
             axis.y = CanJump ? Mathf.Abs(Input.GetAxis(_prefixController + "Jump")) : 0;
             AirControl(axis);
         }
-
         //grounded = false;
     }
     void OnCollisionEnter(Collision collision)
     {
         grounded++;
     }
-
     void OnCollisionStay(Collision collision)
     {
         _jumpDir = Vector3.zero;
@@ -130,14 +115,12 @@ public class Player : Caracteristique
             _jumpDir += cp.normal;
         }
     }
-    
     void OnCollisionExit(Collision collision)
     {
         grounded--;
-
     }
     /// <summary>
-    /// Calcule la vitesse de saut initiale 
+    /// Calcule la vitesse de saut initiale
     /// </summary>
     /// <returns>Retourne la vitesse initiale pour atteindre la hauteur passé en paramètre</returns>
     float CalculateInitialJumpVerticalSpeed(float hauteur)
@@ -145,18 +128,17 @@ public class Player : Caracteristique
         return Mathf.Sqrt(2 * hauteur * Physics.gravity.magnitude * rigidbody.mass);
     }
     /// <summary>
-    /// Calcule la force qui s'applique pour le air contrôle vertical 
+    /// Calcule la force qui s'applique pour le air contrôle vertical
     /// (quand on continue d'appuyer sur jump au début du saut)
     /// </summary>
     /// <returns>Retourn la force calculée</returns>
     float CalculateJumpForce()
     {
-        float deltaTime = 1/_jumpControlDuration;//Time.fixedDeltaTime / _jumpControlDuration;
-        // From the jump height and gravity we deduce the upwards speed 
+        float deltaTime = 1 / _jumpControlDuration;//Time.fixedDeltaTime / _jumpControlDuration;
+        // From the jump height and gravity we deduce the upwards speed
         // for the character to reach at the apex.
-        return Mathf.Sqrt(2 * (JumpHeight -_minJumpHeight) * Physics.gravity.magnitude * deltaTime);
+        return Mathf.Sqrt(2 * (JumpHeight - _minJumpHeight) * Physics.gravity.magnitude * deltaTime);
     }
-
     /// <summary>
     /// Applique les forces necessaire pour atteindre la vitesse targetVelocity
     /// </summary>
@@ -186,18 +168,15 @@ public class Player : Caracteristique
     /// </summary>
     void InitialJump()
     {
-        if (Time.time > timerJump + 5*Time.fixedDeltaTime /*CalculeAirTime(_minJumpHeight)*/)
+        if (Time.time > timerJump + 5 * Time.fixedDeltaTime /*CalculeAirTime(_minJumpHeight)*/)
         {
             var dir = Vector3.Normalize(_jumpDir);
-
             _jumpDir = Vector3.zero;
-
             var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(_minJumpHeight);
-
-            rigidbody.velocity += initialJumpSpeed*dir;
+            rigidbody.velocity += initialJumpSpeed * dir;
             timerJump = Time.time;
         }
-        //anim.speed = _jumpRatio / tempsDeVole; 
+        //anim.speed = _jumpRatio / tempsDeVole;
     }
     /// <summary>
     /// Applique les forces de air contrôle en fonction des inputs axis
@@ -208,18 +187,15 @@ public class Player : Caracteristique
         bool jump = axis.y != 0;
         var velocityChange = _maxAccelerationAir * transform.TransformDirection(axis);
         var t = timerJump + _jumpControlDuration - Time.time;
-
         if (jump && t > 0)
         {
             velocityChange.y = CalculateJumpForce();
             var timeRatio = t / _jumpControlDuration;
             var tempsDeVole = CalculeAirTime(JumpHeight - timeRatio * (JumpHeight - _minJumpHeight));
             //anim.speed = _jumpRatio / tempsDeVole;
-
         }
         else // au cas où
             velocityChange.y = 0;
-
         rigidbody.AddForce(velocityChange, ForceMode.Force);
     }
 }
