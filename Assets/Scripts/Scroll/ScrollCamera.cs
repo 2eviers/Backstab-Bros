@@ -10,10 +10,12 @@ public class ScrollCamera : MonoBehaviour {
 	    _forward = true;
         _positionCible = new Vector3(_player1.transform.position.x, _player1.transform.position.y, Camera.main.transform.position.z);
 	    _initialCameraPosZ = Camera.main.transform.position.z;
+	    _deathType = Camera.main.GetComponent<DeathType>();
 	}
 
     [SerializeField] private GameObject _player1;
     [SerializeField] private GameObject _player2;
+    private DeathType _deathType;
     private bool _forward;
     private GameObject _SelectedPlayer;
     private Vector3 _positionCible;
@@ -42,7 +44,7 @@ public class ScrollCamera : MonoBehaviour {
     /// </summary>
     private void SelectPlayer()
     {
-        if (_player1 != null && _player2 != null)
+        if (_player1.GetComponent<Player>().enabled && _player2.GetComponent<Player>().enabled)
         {
             if (_forward)
                 _SelectedPlayer = _player1.transform.position.x > _player2.transform.position.x ? _player1 : _player2;
@@ -52,9 +54,9 @@ public class ScrollCamera : MonoBehaviour {
         }
         else
         {
-            if (_player1 != null)
+            if (_player1.GetComponent<Player>().enabled)
                 _SelectedPlayer = _player1;
-            if (_player2 != null)
+            if (_player2.GetComponent<Player>().enabled)
                 _SelectedPlayer = _player2;
         }
     }
@@ -74,7 +76,7 @@ public class ScrollCamera : MonoBehaviour {
     private void SetPosition()
     {
         float posY;
-        if (_player1 != null && _player2 != null)
+        if (_player1.GetComponent<Player>().enabled && _player2.GetComponent<Player>().enabled)
             posY = (_player1.transform.position.y + _player2.transform.position.y) / 2;
 
         else
@@ -93,7 +95,7 @@ public class ScrollCamera : MonoBehaviour {
 
     private void Zoom()
     {
-        if (_player1 != null && _player2 != null)
+        if (_player1.GetComponent<Player>().enabled && _player2.GetComponent<Player>().enabled)
         {
             if((Mathf.Abs(LocalPositionX(_player1) - LocalPositionX(_player2)) > 1.5 && Camera.main.transform.position.z > _initialCameraPosZ - 5) ||
                 Mathf.Abs(LocalPositionY(_player1) - LocalPositionY(_player2)) > 1 && Camera.main.transform.position.z > _initialCameraPosZ - 5)
