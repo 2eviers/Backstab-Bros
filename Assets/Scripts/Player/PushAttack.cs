@@ -23,7 +23,10 @@ public class PushAttack : MonoBehaviour {
 
             var pushVectX = Input.GetAxis(GetComponentInParent<Player>()._prefixController + "FireX");
             var pushVectY = Input.GetAxis(GetComponentInParent<Player>()._prefixController + "FireY");
-          
+
+            GetComponentInParent<Player>().anim.SetBool("Push", pushVectX < 0 || pushVectY != 0);
+            
+
             objectToPush.GetComponent<Rigidbody>().AddForce(new Vector3(pushForceRatioX*pushVectX, -pushVectY*pushForceRatioY));
 
             //Timer
@@ -32,16 +35,20 @@ public class PushAttack : MonoBehaviour {
             if (gameObject.GetComponentInParent<Player>()._prefixController == "J2")
                 Camera.main.GetComponent<DeathType>().ActiveSkillP1 = true;
         }
+        else GetComponentInParent<Player>().anim.SetBool("Push", false);
+
+
 	}
 
     void OnTriggerEnter(Collider coll)
-    {   
-        canPush = (coll.gameObject.GetComponentInParent<Player>() != null);
+    {
+        canPush = true;//(coll.gameObject.GetComponentInParent<Player>() != null);
         if (canPush) objectToPush = coll.gameObject.GetComponentInParent<Rigidbody>().gameObject;
     }
 
     void OnTriggerExit(Collider coll)
     {
-        if (coll.gameObject.GetComponentInParent<Player>() != null) canPush = false;
+        //if (coll.gameObject.GetComponentInParent<Player>() != null) 
+        canPush = false;
     }
 }

@@ -10,7 +10,7 @@ public class Caracteristique : MonoBehaviour
     private int _life;
     public int Force = 10;
     public int Score;
-    protected Animator anim;
+    public Animator anim;
 
 	// Use this for initialization
 	protected void Start ()
