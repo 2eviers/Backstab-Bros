@@ -64,6 +64,7 @@ public class Player : Caracteristique
     {
         anim = GetComponentInChildren<Animator>();
 		rotor = GetComponentInChildren<Rotation> ();
+        DontDestroyOnLoad(gameObject);
     }
 
 

@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour {
 
     private void EndLevel()
     {
-        if (_deathType.Player1State != DeathType.PlayerState.Alive && _deathType.Player1State != DeathType.PlayerState.Alive)
+        if (_deathType.Player1State != DeathType.PlayerState.Alive && _deathType.Player2State != DeathType.PlayerState.Alive)
             _end = true;
         if (_finishP1 && _finishP2)
             _end = true;
@@ -42,8 +42,12 @@ public class LevelManager : MonoBehaviour {
     }
 
     private void EndProceed(){
-        if(_end)
+        if (_end)
+        {
             Debug.Log("end");
+            Application.LoadLevel("Test");
+        }
+        
     }
 
 	// Update is called once per frame
