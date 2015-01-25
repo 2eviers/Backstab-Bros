@@ -12,7 +12,7 @@ public class Button : MonoBehaviour {
 
     void OnTriggerEnter(Collider coll)
     {
-        if (coll.GetComponentInParent<Player>())
+        if (coll.GetComponentInParent<Player>() || coll.GetComponentInParent<Pushable>())
         {
             Mechanism m = Target.GetComponent<Mechanism>();
             m.EnableMechanism();
@@ -23,7 +23,7 @@ public class Button : MonoBehaviour {
                 Camera.main.GetComponent<DeathType>().ActivePuzzleP2 = true;
             if (coll.GetComponentInParent<Player>()._prefixController == "J2")
                 Camera.main.GetComponent<DeathType>().ActivePuzzleP1 = true;
-        }
+      }
     }
 
     void OnTriggerExit(Collider coll)

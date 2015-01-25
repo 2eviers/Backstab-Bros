@@ -8,7 +8,7 @@ public class Caracteristique : MonoBehaviour
     /// <summary>
     /// Vie courrante
     /// </summary>
-    private int _life;
+    protected int _life;
     public int Force = 10;
     public int Score;
     public Animator anim;
@@ -56,8 +56,7 @@ public class Caracteristique : MonoBehaviour
         ////appeler l'animation de mort et desactiver le script de controle
         anim.SetBool("Die",true);
 		deathSound.audio.Play ();
-
+        
         GetComponent<Player>().enabled = false;
     }
-
 }
