@@ -105,6 +105,14 @@ public class ScrollCamera : MonoBehaviour {
         }
     }
 
+    private void ScrollingDeath()
+    {
+        if (LocalPositionX(_player1) < -2.5 || LocalPositionX(_player1) > 2.5)
+            _player1.GetComponent<Player>().TakeDamage(1000);
+        if (LocalPositionX(_player2) < -2.5 || LocalPositionX(_player2) > 2.5)
+            _player2.GetComponent<Player>().TakeDamage(1000);
+    }
+
 	// Update is called once per frame
 	void Update ()
 	{
@@ -113,5 +121,6 @@ public class ScrollCamera : MonoBehaviour {
         SetPosition();
         Move();
 	    Zoom();
+        //ScrollingDeath();
 	}
 }
