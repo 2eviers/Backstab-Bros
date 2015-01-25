@@ -42,13 +42,13 @@ public class PushAttack : MonoBehaviour {
 
     void OnTriggerEnter(Collider coll)
     {
-        canPush = true;//(coll.gameObject.GetComponentInParent<Player>() != null);
+        canPush = (coll.gameObject.GetComponentInParent<Player>() != null);
         if (canPush) objectToPush = coll.gameObject.GetComponentInParent<Rigidbody>().gameObject;
     }
 
     void OnTriggerExit(Collider coll)
     {
-        //if (coll.gameObject.GetComponentInParent<Player>() != null) 
-        canPush = false;
+        if (coll.gameObject.GetComponentInParent<Player>() != null) 
+            canPush = false;
     }
 }
