@@ -17,6 +17,6 @@ public class Coin : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        gameObject.transform.Rotate(0, 0, 70*Time.deltaTime);
+        gameObject.transform.Rotate(0, 70 * Time.deltaTime, 0);
 	}
 }
