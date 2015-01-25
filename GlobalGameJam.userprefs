@@ -1,10 +1,13 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player\Player.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Mechanism\Elevator.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player\Player.cs" Line="78" Column="13" />
+      <File FileName="Assets\Scripts\Player\Player.cs" Line="62" Column="30" />
       <File FileName="..\..\Documents\New Unity Project\Assets\Scripts\Player\PlayerMovement.cs" Line="44" Column="47" />
       <File FileName="Assets\Scripts\Player\Rotation.cs" Line="7" Column="23" />
+      <File FileName="Assets\Scripts\Player\Caracteristique.cs" Line="58" Column="28" />
+      <File FileName="Assets\Scripts\Player\PushAttack.cs" Line="28" Column="89" />
+      <File FileName="Assets\Scripts\Mechanism\Elevator.cs" Line="22" Column="52" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
