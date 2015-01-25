@@ -71,7 +71,7 @@ public class Player : Caracteristique
         var axis = new Vector3(Input.GetAxis(_prefixController+"Horizontal"),0, 0);
 		axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"),0, 0);
 
-		float h = Input.GetAxisRaw (_prefixController+"Horizontal");
+        float h = axis.x;//Input.GetAxisRaw (_prefixController+"Horizontal");
 		anim.SetBool ("Walking", h!=0f);
 
         //Si le personnage touche le sol
