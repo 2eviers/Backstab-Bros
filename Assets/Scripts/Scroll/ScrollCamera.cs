@@ -11,6 +11,7 @@ public class ScrollCamera : MonoBehaviour {
         _positionCible = new Vector3(_player1.transform.position.x, _player1.transform.position.y, Camera.main.transform.position.z);
 	    _initialCameraPosZ = Camera.main.transform.position.z;
 	    _deathType = Camera.main.GetComponent<DeathType>();
+        DontDestroyOnLoad(gameObject);
 	}
 
     [SerializeField] private GameObject _player1;
