@@ -107,6 +107,9 @@ ModelImporter:
     100202: Plane009
     100204: Plane010
     100206: Plane011
+    100208: Cylinder00
+    100210: Sphere010
+    100212: Sphere011
     400000: Box001
     400002: Box002
     400004: Box003
@@ -211,6 +214,9 @@ ModelImporter:
     400202: Plane009
     400204: Plane010
     400206: Plane011
+    400208: Cylinder00
+    400210: Sphere010
+    400212: Sphere011
     2300000: Box001
     2300002: Box002
     2300004: Box003
@@ -314,6 +320,9 @@ ModelImporter:
     2300200: Plane009
     2300202: Plane010
     2300204: Plane011
+    2300206: Cylinder00
+    2300208: Sphere010
+    2300210: Sphere011
     3300000: Box001
     3300002: Box002
     3300004: Box003
@@ -417,6 +426,9 @@ ModelImporter:
     3300200: Plane009
     3300202: Plane010
     3300204: Plane011
+    3300206: Cylinder00
+    3300208: Sphere010
+    3300210: Sphere011
     4300000: Plane001
     4300002: Sphere007
     4300004: Box001
@@ -520,6 +532,9 @@ ModelImporter:
     4300200: Box010
     4300202: Box012
     4300204: Box013
+    4300206: Cylinder00
+    4300208: Sphere010
+    4300210: Sphere011
     9500000: //RootNode
   materials:
     importMaterials: 1
