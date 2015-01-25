@@ -4,8 +4,9 @@ using System.Collections;
 public class Coin : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start ()
+	{
+	    //gameObject.GetComponent<AudioSource>().enabled = false;
 	}
 
     void OnTriggerEnter(Collider other)
@@ -13,6 +14,8 @@ public class Coin : MonoBehaviour {
         if (other.gameObject.GetComponentInParent<Player>() != null)
         {
             other.gameObject.GetComponentInParent<Player>().Score++;
+            //gameObject.GetComponent<AudioSource>().enabled = true;
+            gameObject.GetComponent<AudioSource>().Play();
             Destroy(gameObject);
         }
 
