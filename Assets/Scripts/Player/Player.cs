@@ -20,8 +20,6 @@ public class Player : Caracteristique
     /// Hauteur maximal de l'avatar
     /// </summary>
     public float JumpHeight = 2.0f;
-
-    public float JumpCooldown = 2f;
     /// <summary>
     /// Temps de jump controle (temps pendant lequel tu peux augmenter la hauteur du saut
     /// </summary>
@@ -188,7 +186,7 @@ public class Player : Caracteristique
     /// </summary>
     void InitialJump()
     {
-        if (Time.time < timerJump + JumpCooldown /*CalculeAirTime(_minJumpHeight)*/)
+        if (Time.time > timerJump + 5*Time.fixedDeltaTime /*CalculeAirTime(_minJumpHeight)*/)
         {
             var dir = Vector3.Normalize(_jumpDir);
 
@@ -196,7 +194,7 @@ public class Player : Caracteristique
 
             var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(_minJumpHeight);
 
-            rigidbody.velocity = initialJumpSpeed*dir;
+            rigidbody.velocity += initialJumpSpeed*dir;
             timerJump = Time.time;
         }
         //anim.speed = _jumpRatio / tempsDeVole; 
