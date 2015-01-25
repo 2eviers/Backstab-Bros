@@ -45,7 +45,7 @@ public class Player : Caracteristique
     /// <summary>
     /// Variable nécessaire à repérer quand le personnage est au sol
     /// </summary>
-    private int grounded = 0;
+    public int grounded = 0;
     /// <summary>
     /// Temps au moment du saut (nécessaire pour jauger un saut)
     /// </summary>

@@ -12,7 +12,8 @@ public class LevelManager : MonoBehaviour {
         //_deathType.Player2.GetComponent<Player>().anim.SetBool("Death", true);
 	    _respawn = true;
 	    _deathType = Camera.main.GetComponent<DeathType>();
-        //_deathType.Player1.GetComponent<Player>().
+        _deathType.Player1.GetComponent<Player>().grounded = 0;
+        _deathType.Player2.GetComponent<Player>().grounded = 0;
 	}
 
     //[SerializeField] private GameObject _player1;
