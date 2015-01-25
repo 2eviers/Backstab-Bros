@@ -112,12 +112,41 @@ public class Player : Caracteristique
     }
     void OnCollisionEnter(Collision collision)
     {
-        grounded++;
+        Vector3 pos = collision.contacts[0].point;
+        bool hitGround = false;
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            // if the collision is against the ground, it's on the x axis, so y and
+            // z are the same for all contact points
+            if (contact.point.y != pos.y || contact.point.z != pos.z)
+            {
+                grounded++;
+                return;
+            }
+        }
+        if (collision.contacts[0].normal.y > 0.30)
+            hitGround = true;
+        if (hitGround)
+            grounded++;
     }
 
     void OnCollisionExit(Collision collision)
     {
-        grounded--;
+        Vector3 pos = collision.contacts[0].point;
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            // if the collision is against the ground, it's on the x axis, so y and
+            // z are the same for all contact points
+            if (contact.point.y != pos.y || contact.point.z != pos.z)
+            {
+                grounded--;
+                return;
+            }
+        }
+
+        bool hitGround = (Mathf.Abs(collision.contacts[0].normal.y) > 0.10);
+        if (hitGround)
+            grounded--;
     }
     /// <summary>
     /// Calcule la vitesse de saut initiale 

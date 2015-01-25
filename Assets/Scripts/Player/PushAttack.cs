@@ -8,12 +8,10 @@ public class PushAttack : MonoBehaviour {
     public float pushForceRatioY;
     GameObject objectToPush;
 
-	// Use this for initialization
 	void Start () {
 	
 	}
 	
-	// Update is called once per frame
 	void FixedUpdate () {
         if (canPush)
         {
@@ -21,11 +19,7 @@ public class PushAttack : MonoBehaviour {
             var pushVectX = Input.GetAxis(GetComponentInParent<Player>()._prefixController + "FireX");
             var pushVectY = Input.GetAxis(GetComponentInParent<Player>()._prefixController + "FireY");
           
-
-            if (pushVectX >= 0) { 
-                 Debug.Log("vectX =" + pushVectX + "vectY =" + pushVectY   );
-                 objectToPush.GetComponent<Rigidbody>().AddForce(new Vector3(pushForceRatioX*pushVectX, -pushVectY*pushForceRatioY));
-            }
+            objectToPush.GetComponent<Rigidbody>().AddForce(new Vector3(pushForceRatioX*pushVectX, -pushVectY*pushForceRatioY));
 
             //Timer
             if (gameObject.GetComponentInParent<Player>()._prefixController == "J1")
