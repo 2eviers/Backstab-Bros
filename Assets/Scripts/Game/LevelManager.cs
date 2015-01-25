@@ -41,11 +41,29 @@ public class LevelManager : MonoBehaviour {
             _finishP2 = true;
     }
 
+    private void Upgrade()
+    {
+        
+    }
+
     private void EndProceed(){
         if (_end)
         {
-            Debug.Log("end");
-            Application.LoadLevel("Test");
+            if (_finishP1 && _deathType.Player2State != DeathType.PlayerState.Alive)
+                _deathType.Player1.GetComponentInParent<Player>().Score += 40;
+            if (_finishP2 && _deathType.Player1State != DeathType.PlayerState.Alive)
+                _deathType.Player2.GetComponentInParent<Player>().Score += 40;
+            if (_finishP1 && _finishP2)
+            {
+                _deathType.Player1.GetComponentInParent<Player>().Score += 20;
+                _deathType.Player2.GetComponentInParent<Player>().Score += 20;
+            }
+            if(_deathType.Player1State == DeathType.PlayerState.Suicide)
+                _deathType.Player1.GetComponentInParent<Player>().Score -= 20;
+            if (_deathType.Player2State == DeathType.PlayerState.Suicide)
+                _deathType.Player2.GetComponentInParent<Player>().Score -= 20;
+            Upgrade();
+            //Application.LoadLevel("Test");
         }
         
     }
