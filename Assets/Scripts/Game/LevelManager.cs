@@ -35,18 +35,20 @@ public class LevelManager : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Player>()._prefixController == "J1")
+        if (other.gameObject.GetComponentInParent<Player>()._prefixController == "J1")
             _finishP1 = true;
-        if (other.gameObject.GetComponent<Player>()._prefixController == "J2")
+        if (other.gameObject.GetComponentInParent<Player>()._prefixController == "J2")
             _finishP2 = true;
     }
 
     private void EndProceed(){
-
+        if(_end)
+            Debug.Log("end");
     }
 
 	// Update is called once per frame
 	void Update () {
         EndLevel();
+        EndProceed();
 	}
 }
