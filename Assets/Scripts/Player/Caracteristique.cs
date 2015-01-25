@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Caracteristique : MonoBehaviour
 {
+	public GameObject deathSound;
     public int MaxLife = 100;
     /// <summary>
     /// Vie courrante
@@ -15,6 +16,7 @@ public class Caracteristique : MonoBehaviour
 	// Use this for initialization
 	protected void Start ()
 	{
+
         anim = GetComponentInChildren<Animator>();
 	    _life = MaxLife;
 	    Score = 0;
@@ -53,6 +55,8 @@ public class Caracteristique : MonoBehaviour
     {
         ////appeler l'animation de mort et desactiver le script de controle
         anim.SetBool("Die",true);
+		deathSound.audio.Play ();
+
         GetComponent<Player>().enabled = false;
     }
 
