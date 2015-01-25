@@ -80,6 +80,22 @@ ModelImporter:
     100148: Sphere007
     100150: Sphere008
     100152: Sphere009
+    100154: Box006
+    100156: Box007
+    100158: Box008
+    100160: Line001
+    100162: Line002
+    100164: Object001
+    100166: Object002
+    100168: Object003
+    100170: Plane002
+    100172: Plane003
+    100174: Sphere001
+    100176: Sphere002
+    100178: Sphere003
+    100180: Sphere004
+    100182: Sphere005
+    100184: Sphere006
     400000: Box001
     400002: Box002
     400004: Box003
@@ -157,6 +173,22 @@ ModelImporter:
     400148: Sphere007
     400150: Sphere008
     400152: Sphere009
+    400154: Box006
+    400156: Box007
+    400158: Box008
+    400160: Line001
+    400162: Line002
+    400164: Object001
+    400166: Object002
+    400168: Object003
+    400170: Plane002
+    400172: Plane003
+    400174: Sphere001
+    400176: Sphere002
+    400178: Sphere003
+    400180: Sphere004
+    400182: Sphere005
+    400184: Sphere006
     2300000: Box001
     2300002: Box002
     2300004: Box003
@@ -233,6 +265,22 @@ ModelImporter:
     2300146: Sphere007
     2300148: Sphere008
     2300150: Sphere009
+    2300152: Box006
+    2300154: Box007
+    2300156: Box008
+    2300158: Line001
+    2300160: Line002
+    2300162: Object001
+    2300164: Object002
+    2300166: Object003
+    2300168: Plane002
+    2300170: Plane003
+    2300172: Sphere001
+    2300174: Sphere002
+    2300176: Sphere003
+    2300178: Sphere004
+    2300180: Sphere005
+    2300182: Sphere006
     3300000: Box001
     3300002: Box002
     3300004: Box003
@@ -309,6 +357,22 @@ ModelImporter:
     3300146: Sphere007
     3300148: Sphere008
     3300150: Sphere009
+    3300152: Box006
+    3300154: Box007
+    3300156: Box008
+    3300158: Line001
+    3300160: Line002
+    3300162: Object001
+    3300164: Object002
+    3300166: Object003
+    3300168: Plane002
+    3300170: Plane003
+    3300172: Sphere001
+    3300174: Sphere002
+    3300176: Sphere003
+    3300178: Sphere004
+    3300180: Sphere005
+    3300182: Sphere006
     4300000: Plane001
     4300002: Sphere007
     4300004: Box001
@@ -385,6 +449,22 @@ ModelImporter:
     4300146: Sphere009
     4300148: Box004
     4300150: Box005
+    4300152: Sphere001
+    4300154: Object002
+    4300156: Sphere003
+    4300158: Sphere002
+    4300160: Object001
+    4300162: Object003
+    4300164: Sphere004
+    4300166: Sphere005
+    4300168: Sphere006
+    4300170: Plane002
+    4300172: Box006
+    4300174: Box007
+    4300176: Box008
+    4300178: Line001
+    4300180: Plane003
+    4300182: Line002
     9500000: //RootNode
   materials:
     importMaterials: 1
