@@ -121,6 +121,6 @@ public class ScrollCamera : MonoBehaviour {
         SetPosition();
         Move();
 	    Zoom();
-        ScrollingDeath();
+        //ScrollingDeath();
 	}
 }
