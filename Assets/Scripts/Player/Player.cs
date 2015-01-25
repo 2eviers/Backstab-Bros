@@ -171,6 +171,8 @@ public class Player : Caracteristique
         if (Time.time > timerJump + 5 * Time.fixedDeltaTime /*CalculeAirTime(_minJumpHeight)*/)
         {
             var dir = Vector3.Normalize(_jumpDir);
+            dir += new Vector3(0, 1, 0);
+            dir.Normalize();
             _jumpDir = Vector3.zero;
             var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(_minJumpHeight);
             rigidbody.velocity += initialJumpSpeed * dir;
