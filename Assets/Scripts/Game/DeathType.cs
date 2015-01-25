@@ -53,8 +53,8 @@ public class DeathType : MonoBehaviour
     public bool ActiveSkillP2 { get; set; }
     #endregion
 
-    public PlayerState Player1State { get; private set; }
-    public PlayerState Player2State { get; private set; }
+    public PlayerState Player1State { get; set; }
+    public PlayerState Player2State { get; set; }
 
     private void RunTimer()
     {
