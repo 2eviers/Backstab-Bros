@@ -9,11 +9,13 @@ public class Caracteristique : MonoBehaviour
     /// </summary>
     private int _life;
     public int Force = 10;
+    public int Score;
 
 	// Use this for initialization
 	void Start ()
 	{
 	    _life = MaxLife;
+	    Score = 0;
 	}
 	/// <summary>
 	/// A chaque frame on vérifie que le personnage est mort.
