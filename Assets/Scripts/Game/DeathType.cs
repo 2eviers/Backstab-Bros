@@ -33,6 +33,10 @@ public class DeathType : MonoBehaviour
     [SerializeField]
     private GameObject _player2;
 
+    public GameObject Player1 { get { return _player1;} }
+    public GameObject Player2 { get { return _player2; } }
+
+
     private int _max;
 
     #region Timer

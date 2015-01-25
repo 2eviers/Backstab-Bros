@@ -6,7 +6,7 @@ public class CancellingButton : MonoBehaviour {
     public GameObject Target;
 
     // On Collision, permanently disable mechanism
-    void OnCollisionEnter(Collision coll)
+    void OnTriggerEnter(Collider coll)
     {
         Target.GetComponent<Mechanism>().PermanentlyDisableMechanism();
     }

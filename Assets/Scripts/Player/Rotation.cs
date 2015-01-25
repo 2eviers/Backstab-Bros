@@ -2,15 +2,15 @@
 using System.Collections;
 
 public class Rotation : MonoBehaviour {
-
+    /*/
 	bool right;
 	public float rotatespeed = 45f;
-
+    //*/
 	// Use this for initialization
 	void Start () {
-		right = true;
+		//right = true;
 	}
-	
+	/*/
 	// Update is called once per frame
 	void FixedUpdate () {
 		float yAngle = transform.rotation.y;
@@ -28,13 +28,18 @@ public class Rotation : MonoBehaviour {
 		transform.rotation = temporaryQuaternion;
 	}
 	//*/
+    /*/
 	public void turn(){
-		right = !right;
+		
+        //right = !right;
 	}
 	//*/
 	//*/
-	public void turn(bool right){
-		this.right = right;
+	public void turn(bool right)
+	{
+	    Quaternion quat = transform.rotation;
+	    quat.y = right ? 0f : 180f;
+	    transform.rotation = quat;
 	}
 	//*/
 }

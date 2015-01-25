@@ -41,10 +41,46 @@ public class LevelManager : MonoBehaviour {
             _finishP2 = true;
     }
 
+    private void Upgrade()
+    {
+        _deathType.Player1.GetComponentInChildren<PushAttack>().pushForceRatioX +=
+            _deathType.Player1.GetComponentInChildren<PushAttack>().InitPushX*0.0025f*
+            _deathType.Player1.GetComponentInParent<Player>().Score;
+
+        _deathType.Player1.GetComponentInChildren<PushAttack>().pushForceRatioY +=
+            _deathType.Player1.GetComponentInChildren<PushAttack>().InitPushY * 0.0025f *
+            _deathType.Player1.GetComponentInParent<Player>().Score;
+
+        _deathType.Player1.GetComponentInParent<Player>().Score = 0;
+
+        _deathType.Player2.GetComponentInChildren<PushAttack>().pushForceRatioX +=
+            _deathType.Player2.GetComponentInChildren<PushAttack>().InitPushX * 0.0025f *
+            _deathType.Player2.GetComponentInParent<Player>().Score;
+
+        _deathType.Player2.GetComponentInChildren<PushAttack>().pushForceRatioY +=
+            _deathType.Player2.GetComponentInChildren<PushAttack>().InitPushY * 0.0025f *
+            _deathType.Player2.GetComponentInParent<Player>().Score;
+
+        _deathType.Player2.GetComponentInParent<Player>().Score = 0;
+    }
+
     private void EndProceed(){
         if (_end)
         {
-            Debug.Log("end");
+            if (_finishP1 && _deathType.Player2State != DeathType.PlayerState.Alive)
+                _deathType.Player1.GetComponentInParent<Player>().Score += 40;
+            if (_finishP2 && _deathType.Player1State != DeathType.PlayerState.Alive)
+                _deathType.Player2.GetComponentInParent<Player>().Score += 40;
+            if (_finishP1 && _finishP2)
+            {
+                _deathType.Player1.GetComponentInParent<Player>().Score += 20;
+                _deathType.Player2.GetComponentInParent<Player>().Score += 20;
+            }
+            if(_deathType.Player1State == DeathType.PlayerState.Suicide)
+                _deathType.Player1.GetComponentInParent<Player>().Score -= 20;
+            if (_deathType.Player2State == DeathType.PlayerState.Suicide)
+                _deathType.Player2.GetComponentInParent<Player>().Score -= 20;
+            Upgrade();
             Application.LoadLevel("Test");
         }
         
