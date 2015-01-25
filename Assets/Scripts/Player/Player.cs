@@ -64,6 +64,7 @@ public class Player : Caracteristique
     {
         anim = GetComponentInChildren<Animator>();
 		rotor = GetComponentInChildren<Rotation> ();
+        DontDestroyOnLoad(gameObject);
     }
 
 
@@ -73,7 +74,9 @@ public class Player : Caracteristique
         var axis = new Vector3(Input.GetAxis(_prefixController+"Horizontal"),0, 0);
 		axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"),0, 0);
 
-        float h = axis.x;//Input.GetAxisRaw (_prefixController+"Horizontal");
+
+        float h = axis.x;
+
 		anim.SetBool ("Walking", h!=0f);
 		if(axis.x!=0)
 			rotor.turn (axis.x > 0);
@@ -118,6 +121,7 @@ public class Player : Caracteristique
     void OnCollisionExit(Collision collision)
     {
         grounded--;
+
     }
     /// <summary>
     /// Calcule la vitesse de saut initiale 

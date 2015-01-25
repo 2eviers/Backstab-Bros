@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour {
 
     private void EndLevel()
     {
-        if (_deathType.Player1State != DeathType.PlayerState.Alive && _deathType.Player1State != DeathType.PlayerState.Alive)
+        if (_deathType.Player1State != DeathType.PlayerState.Alive && _deathType.Player2State != DeathType.PlayerState.Alive)
             _end = true;
         if (_finishP1 && _finishP2)
             _end = true;
@@ -35,18 +35,24 @@ public class LevelManager : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Player>()._prefixController == "J1")
+        if (other.gameObject.GetComponentInParent<Player>()._prefixController == "J1")
             _finishP1 = true;
-        if (other.gameObject.GetComponent<Player>()._prefixController == "J2")
+        if (other.gameObject.GetComponentInParent<Player>()._prefixController == "J2")
             _finishP2 = true;
     }
 
     private void EndProceed(){
-
+        if (_end)
+        {
+            Debug.Log("end");
+            Application.LoadLevel("Test");
+        }
+        
     }
 
 	// Update is called once per frame
 	void Update () {
         EndLevel();
+        EndProceed();
 	}
 }
