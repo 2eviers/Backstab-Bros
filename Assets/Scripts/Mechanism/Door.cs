@@ -10,6 +10,7 @@ public class Door : Mechanism {
     private Vector3 _direction;
     private float _height;
 
+
     void Start()
     {
         _initialPosition = this.transform.position.y;
@@ -20,9 +21,9 @@ public class Door : Mechanism {
     {
         bool b;
         if (Upward)
-            b = this.transform.position.y >= _initialPosition + this.transform.localScale.y;
+            b = this.transform.position.y >= _initialPosition + GetComponent<MeshCollider>().bounds.size.y; 
         else
-            b = this.transform.position.y <= _initialPosition - this.transform.localScale.y;
+            b = this.transform.position.y <= _initialPosition - GetComponent<MeshCollider>().bounds.size.y;
         if (b)
             return;
         else
@@ -35,12 +36,20 @@ public class Door : Mechanism {
     // Close the door
     protected override void backToDefaultPosition()
     {
-        if (this.transform.position.y >= _initialPosition)
-            return;
-        else
+        if (this.transform.position.y != _initialPosition)
         {
-            _direction = new Vector3(0, (Upward ? -1 : 1), 0);
-            transform.Translate(_direction * Speed * Time.deltaTime);
+            bool b;
+            if (Upward)
+                b = this.transform.position.y <= _initialPosition - GetComponent<MeshCollider>().bounds.size.y;
+            else
+                b = this.transform.position.y >= _initialPosition + GetComponent<MeshCollider>().bounds.size.y;
+            if (b)
+                return;
+            else
+            {
+                _direction = new Vector3(0, (Upward ? -1 : 1), 0);
+                transform.Translate(_direction * Speed * Time.deltaTime);
+            }
         }
     }
 }
