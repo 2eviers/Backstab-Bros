@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class PushAttack : MonoBehaviour {
+	public GameObject pushSound;
 
     bool canPush = false;
     public float pushForceRatioX;
@@ -24,7 +25,7 @@ public class PushAttack : MonoBehaviour {
             var pushVectX = Input.GetAxis(GetComponentInParent<Player>()._prefixController + "FireX");
             var pushVectY = Input.GetAxis(GetComponentInParent<Player>()._prefixController + "FireY");
 
-            GetComponentInParent<Player>().anim.SetBool("Push", pushVectX < 0 || pushVectY != 0);
+			GetComponentInParent<Player>().anim.SetBool("Push", pushVectX < 0 || pushVectY != 0);
             
 
             objectToPush.GetComponent<Rigidbody>().AddForce(new Vector3(pushForceRatioX*pushVectX, -pushVectY*pushForceRatioY));
