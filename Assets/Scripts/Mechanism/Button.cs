@@ -5,7 +5,6 @@ public class Button : MonoBehaviour {
     //class button to activate any mechanism
 
     public GameObject Target;
-    public float Cooldown;
 
     private float _timer;
 
