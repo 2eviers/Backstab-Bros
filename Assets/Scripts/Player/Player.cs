@@ -203,4 +203,14 @@ public class Player : Caracteristique
             velocityChange.y = 0;
         rigidbody.AddForce(velocityChange, ForceMode.Force);
     }
+
+    public void ressucite()
+    {
+        _life = MaxLife;
+        if(_prefixController == "J1")
+            gameObject.transform.position = new Vector3(7,4,0);
+        if(_prefixController == "J2")
+            gameObject.transform.position = new Vector3(4,4,0);
+        anim.SetBool("Respawn", true);
+    }
 }

@@ -8,7 +8,9 @@ public class LevelManager : MonoBehaviour {
         _end = false;
         _finishP1 = false;
         _finishP2 = false;
+	    _respawn = false;
 	    _deathType = Camera.main.GetComponent<DeathType>();
+        //_deathType.Player1.GetComponent<Player>().
 	}
 
     //[SerializeField] private GameObject _player1;
@@ -17,14 +19,17 @@ public class LevelManager : MonoBehaviour {
     private bool _end;
     private bool _finishP1;
     private bool _finishP2;
+    private bool _respawn;
 
     //utilisation de deathtype
     //dans le trigger on cherche lequel et on regarde ceux qui sont en vie.
 
     private void EndLevel()
     {
-        if (_deathType.Player1State != DeathType.PlayerState.Alive && _deathType.Player2State != DeathType.PlayerState.Alive)
-            _end = true;
+        if (_deathType.Player1State != DeathType.PlayerState.Alive &&
+            _deathType.Player2State != DeathType.PlayerState.Alive)
+            //_end = true;
+            _respawn = true;
         if (_finishP1 && _finishP2)
             _end = true;
         if (_finishP1 && _deathType.Player2State != DeathType.PlayerState.Alive)
@@ -39,6 +44,22 @@ public class LevelManager : MonoBehaviour {
             _finishP1 = true;
         if (other.gameObject.GetComponentInParent<Player>()._prefixController == "J2")
             _finishP2 = true;
+    }
+
+    private void Respawn()
+    {
+        if (_respawn)
+        {
+            _deathType.Player1.GetComponent<Player>().enabled = true;
+            _deathType.Player1.GetComponent<Player>().ressucite();
+            _deathType.Player1State = DeathType.PlayerState.Alive;
+
+            _deathType.Player2.GetComponent<Player>().enabled = true;
+            _deathType.Player2.GetComponent<Player>().ressucite();
+            _deathType.Player2State = DeathType.PlayerState.Alive;
+
+            _respawn = false;
+        }
     }
 
     private void Upgrade()
@@ -88,7 +109,11 @@ public class LevelManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        Debug.Log(_deathType.Player1State);
+        Debug.Log(_deathType.Player2State);
+        Debug.Log(_respawn);
         EndLevel();
         EndProceed();
+        Respawn();
 	}
 }
