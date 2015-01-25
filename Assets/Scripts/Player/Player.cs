@@ -58,7 +58,8 @@ public class Player : Caracteristique
     /// Il contient la résultante des normales aux points de contact
     /// </summary>
     private Vector3 _jumpDir;
-    private Rotation rotor;
+	private Rotation rotor;
+	public GameObject jumpSound;
     void Start()
     {
         base.Start();
@@ -93,6 +94,8 @@ public class Player : Caracteristique
             {
                 InitialJump();
                 anim.SetBool("Jump", true);
+				jumpSound.audio.Play();
+
             }
         }
         // si le personnage est en vole
