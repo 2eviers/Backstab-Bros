@@ -73,11 +73,9 @@ public class Player : Caracteristique
         var axis = new Vector3(Input.GetAxis(_prefixController+"Horizontal"),0, 0);
 		axis += new Vector3(Input.GetAxis(_prefixController + "HorizontalJoystick"),0, 0);
 
-<<<<<<< HEAD
+
         float h = axis.x;
-=======
-        float h = axis.x;//Input.GetAxisRaw (_prefixController+"Horizontal");
->>>>>>> db5aabe86fc1334187d4afb260e806f55e7767e1
+
 		anim.SetBool ("Walking", h!=0f);
 		if(axis.x!=0)
 			rotor.turn (axis.x > 0);
