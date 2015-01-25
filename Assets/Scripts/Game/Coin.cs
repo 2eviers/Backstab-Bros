@@ -15,7 +15,8 @@ public class Coin : MonoBehaviour {
         {
             other.gameObject.GetComponentInParent<Player>().Score++;
             //gameObject.GetComponent<AudioSource>().enabled = true;
-            gameObject.GetComponent<AudioSource>().Play();
+            gameObject.audio.Play();
+            //gameObject.GetComponent<AudioSource>().Play();
             Destroy(gameObject);
         }
 
