@@ -15,10 +15,8 @@ public class ButtonOn : MonoBehaviour {
     {
         Mechanism m = Target.GetComponent<Mechanism>();
         Mechanism m2 = Target2.GetComponent<Mechanism>();
-
         if (coll.GetComponentInParent<Player>())
         {
-          
 
                 isActivated = true;
 

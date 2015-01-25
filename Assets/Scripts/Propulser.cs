@@ -54,7 +54,9 @@ public class Propulser : MonoBehaviour
             _enabled = true;
         }
         if (_enabled && ok1)
+        {
             r1.AddForce(Force);
+           }
         if (_enabled && ok2)
             r2.AddForce(Force);
     }

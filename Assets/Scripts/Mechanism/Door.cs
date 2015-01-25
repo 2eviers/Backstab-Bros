@@ -19,6 +19,8 @@ public class Door : Mechanism {
     // Lift the door
     protected override void runMechanism()
     {
+     
+
         bool b;
         if (Upward)
             b = this.transform.position.y >= _initialPosition + GetComponent<MeshCollider>().bounds.size.y; 
