@@ -29,7 +29,7 @@ public class ElevatorDoubleButton : Mechanism {
             _right = 1;
 
         Vector3 dir = new Vector3(1, 0, 0);
-        Platform.rigidbody.MovePosition(Platform.rigidbody.position + dir * Speed * _right * Time.fixedDeltaTime);
+        Platform.GetComponent<Rigidbody>().MovePosition(Platform.GetComponent<Rigidbody>().position + dir * Speed * _right * Time.fixedDeltaTime);
         // rigidbody.transform.Translate(dir * Speed * _upward * Time.fixedDeltaTime);
 
         // Platform.transform.Translate(dir * Speed * _upward * Time.deltaTime);
@@ -45,7 +45,7 @@ public class ElevatorDoubleButton : Mechanism {
             _right = -1;
         else if (Platform.transform.position.x < _originalWidth)
             _right = 1;
-        Platform.rigidbody.MovePosition(Platform.rigidbody.position + dir * Speed * _right * Time.fixedDeltaTime);
+        Platform.GetComponent<Rigidbody>().MovePosition(Platform.GetComponent<Rigidbody>().position + dir * Speed * _right * Time.fixedDeltaTime);
         //rigidbody.transform.Translate(dir * Speed * _upward * Time.fixedDeltaTime);
 
         // Platform.transform.Translate(dir * Speed * _upward * Time.deltaTime);

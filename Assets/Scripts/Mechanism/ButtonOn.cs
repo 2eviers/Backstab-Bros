@@ -38,8 +38,8 @@ public class ButtonOn : MonoBehaviour {
     {
         m.EnableMechanism();
 
-        if (m.audio && !m.audio.isPlaying)
-            m.audio.Play();
+        if (m.GetComponent<AudioSource>() && !m.GetComponent<AudioSource>().isPlaying)
+            m.GetComponent<AudioSource>().Play();
     }
 
 }

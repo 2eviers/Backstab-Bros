@@ -28,7 +28,7 @@ public class Elevator : Mechanism {
             _upward = 1;
 
         Vector3 dir = new Vector3(0, 1, 0);
-        Platform.rigidbody.MovePosition(Platform.rigidbody.position + dir * Speed * _upward * Time.fixedDeltaTime);
+        Platform.GetComponent<Rigidbody>().MovePosition(Platform.GetComponent<Rigidbody>().position + dir * Speed * _upward * Time.fixedDeltaTime);
        // rigidbody.transform.Translate(dir * Speed * _upward * Time.fixedDeltaTime);
 
        // Platform.transform.Translate(dir * Speed * _upward * Time.deltaTime);
@@ -44,7 +44,7 @@ public class Elevator : Mechanism {
             _upward = -1;
         else if (Platform.transform.position.y < _originalHeight)
             _upward = 1;
-        Platform.rigidbody.MovePosition(Platform.rigidbody.position + dir * Speed * _upward * Time.fixedDeltaTime);
+        Platform.GetComponent<Rigidbody>().MovePosition(Platform.GetComponent<Rigidbody>().position + dir * Speed * _upward * Time.fixedDeltaTime);
         //rigidbody.transform.Translate(dir * Speed * _upward * Time.fixedDeltaTime);
 
       // Platform.transform.Translate(dir * Speed * _upward * Time.deltaTime);

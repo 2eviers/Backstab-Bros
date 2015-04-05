@@ -53,7 +53,7 @@ public class PlatformMovement : Mechanism {
             _leftFrequency++;
         }
 
-        rigidbody.MovePosition(transform.position + _direction * Speed * Time.deltaTime);
+        GetComponent<Rigidbody>().MovePosition(transform.position + _direction * Speed * Time.deltaTime);
     }
 
     // Common patrol movement in the allowed range

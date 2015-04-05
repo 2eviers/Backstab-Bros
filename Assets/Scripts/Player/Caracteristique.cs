@@ -55,7 +55,7 @@ public class Caracteristique : MonoBehaviour
     {
         ////appeler l'animation de mort et desactiver le script de controle
         anim.SetBool("Die",true);
-		deathSound.audio.Play ();
+		deathSound.GetComponent<AudioSource>().Play ();
         
         GetComponent<Player>().enabled = false;
     }

@@ -94,7 +94,7 @@ public class Player : Caracteristique
             {
                 InitialJump();
                 anim.SetBool("Jump", true);
-				jumpSound.audio.Play();
+				jumpSound.GetComponent<AudioSource>().Play();
 
             }
         }
@@ -128,7 +128,7 @@ public class Player : Caracteristique
     /// <returns>Retourne la vitesse initiale pour atteindre la hauteur passé en paramètre</returns>
     float CalculateInitialJumpVerticalSpeed(float hauteur)
     {
-        return Mathf.Sqrt(2 * hauteur * Physics.gravity.magnitude * rigidbody.mass);
+        return Mathf.Sqrt(2 * hauteur * Physics.gravity.magnitude * GetComponent<Rigidbody>().mass);
     }
     /// <summary>
     /// Calcule la force qui s'applique pour le air contrôle vertical
@@ -148,13 +148,13 @@ public class Player : Caracteristique
     /// <param name="targetVelocity"></param>
     void ApplySpeedForce(Vector3 targetVelocity)
     {
-        Vector3 velocity = rigidbody.velocity;
+        Vector3 velocity = GetComponent<Rigidbody>().velocity;
         Vector3 velocityChange = (targetVelocity - velocity);
         var maxVelChan = _maxAcceleration;
         velocityChange.x = Mathf.Clamp(velocityChange.x, -maxVelChan, maxVelChan);
         velocityChange.z = 0;
         velocityChange.y = 0;
-        rigidbody.AddForce(velocityChange, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(velocityChange, ForceMode.VelocityChange);
     }
     /// <summary>
     /// Calcule le temps passé en l'air lors d'un saut d'une hauteur de hauteur
@@ -178,7 +178,7 @@ public class Player : Caracteristique
             dir.Normalize();
             _jumpDir = Vector3.zero;
             var initialJumpSpeed = CalculateInitialJumpVerticalSpeed(_minJumpHeight);
-            rigidbody.velocity += initialJumpSpeed * dir;
+            GetComponent<Rigidbody>().velocity += initialJumpSpeed * dir;
             timerJump = Time.time;
         }
         //anim.speed = _jumpRatio / tempsDeVole;
@@ -201,7 +201,7 @@ public class Player : Caracteristique
         }
         else // au cas où
             velocityChange.y = 0;
-        rigidbody.AddForce(velocityChange, ForceMode.Force);
+        GetComponent<Rigidbody>().AddForce(velocityChange, ForceMode.Force);
     }
 
     public void ressucite()

@@ -40,8 +40,8 @@ public class ButtonOff : MonoBehaviour {
     {
         m.DisableMechanism();
 
-        if (m.audio && !m.audio.isPlaying)
-            m.audio.Play();
+        if (m.GetComponent<AudioSource>() && !m.GetComponent<AudioSource>().isPlaying)
+            m.GetComponent<AudioSource>().Play();
     }
 
 }
