@@ -122,9 +122,6 @@ public class LevelManager : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(_deathType.Player1State);
-        Debug.Log(_deathType.Player2State);
-        Debug.Log(_respawn);
         EndLevel();
         EndProceed();
         Respawn();
